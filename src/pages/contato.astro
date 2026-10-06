@@ -8,7 +8,7 @@ import MapEmbed from '@/components/contact/MapEmbed.astro';
 import { siteConfig, whatsappMessages } from '@/config/site';
 import { breadcrumbSchema, graph, organizationSchema, webPageSchema } from '@/utils/schema';
 
-const title = 'Contato — Advogado em Porto Alegre';
+const title = 'Contato | Advogado em Porto Alegre';
 const description = `Fale com a DM Advocacia pelo WhatsApp ${siteConfig.contact.phoneDisplay}. Escritório no Sarandi, em Porto Alegre. Atendimento presencial ou por vídeo, com hora marcada.`;
 const crumbs = [
   { name: 'Início', path: '/' },
@@ -25,7 +25,7 @@ const schema = graph(
   <PageHero
     kicker="Contato da DM Advocacia em Porto Alegre"
     title="Vamos conversar sobre o seu caso."
-    lead="O WhatsApp é o caminho mais rápido. Conte brevemente a situação e agende o atendimento — presencial, no escritório, ou por chamada de vídeo."
+    lead="O WhatsApp é o caminho mais rápido. Conte brevemente a situação e agende o atendimento presencial, no escritório, ou por chamada de vídeo."
     breadcrumbs={crumbs}
   >
     <WhatsAppButton message={whatsappMessages.general} label="Falar no WhatsApp" track="contato-hero-whatsapp" />
@@ -34,7 +34,7 @@ const schema = graph(
   <section class="section-y channels" aria-labelledby="channels-title">
     <div class="wrap channels__grid">
       <div>
-        <h2 id="channels-title" class="label">Canais de atendimento</h2>
+        <h2 id="channels-title" class="h-lg channels-title">Canais de atendimento</h2>
         <ContactBlock headingLevel="h3" />
       </div>
       <div class="form-wrap">
@@ -76,13 +76,8 @@ const schema = graph(
       align-items: start;
     }
   }
-  .label {
-    font-family: var(--font-sans);
-    font-size: 0.95rem;
-    font-weight: 600;
-    letter-spacing: 0;
-    color: var(--color-gold-ink);
-    margin-bottom: 1.5rem;
+  .channels-title {
+    margin-bottom: 1.75rem;
   }
   .form-wrap {
     padding: clamp(1.5rem, 3.5vw, 3rem);

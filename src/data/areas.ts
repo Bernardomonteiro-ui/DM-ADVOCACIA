@@ -54,11 +54,11 @@ export const areas: Area[] = [
     seoTitle: 'Advogado Trabalhista em Porto Alegre',
     metaDescription:
       'Advogado trabalhista em Porto Alegre: rescisão, horas extras, vínculo de emprego, assédio e acidente de trabalho. Atendimento presencial ou por vídeo.',
-    lead: 'Orientação clara para quem enfrenta uma questão na relação de trabalho — do fim do contrato às condições do dia a dia.',
+    lead: 'Orientação clara para quem enfrenta uma questão na relação de trabalho, do fim do contrato às condições do dia a dia.',
     summary: 'Rescisão, jornada, vínculo de emprego, assédio e acidente de trabalho.',
     intro: [
       'Questões trabalhistas costumam envolver prazos, documentos e cálculos que fazem diferença no resultado da análise. Por isso, o primeiro passo é entender com precisão o que aconteceu durante o contrato e como ele terminou.',
-      'Na DM Advocacia, casos trabalhistas são conduzidos por profissional dedicado à área, que analisa a documentação, explica os caminhos possíveis e acompanha cada etapa — extrajudicial ou judicial.',
+      'Na DM Advocacia, casos trabalhistas são conduzidos por profissional dedicado à área, que analisa a documentação, explica os caminhos possíveis e acompanha cada etapa, na esfera extrajudicial ou judicial.',
     ],
     situations: [
       'Verbas rescisórias não pagas ou calculadas de forma incorreta',
@@ -78,7 +78,7 @@ export const areas: Area[] = [
       },
       {
         title: 'Documentos que ajudam na análise',
-        body: 'Carteira de trabalho, contrato, holerites, termo de rescisão, extrato do FGTS, registros de ponto e mensagens ou e-mails relacionados ao trabalho. Não é preciso ter tudo para a primeira conversa — o profissional indica o que é relevante.',
+        body: 'Carteira de trabalho, contrato, holerites, termo de rescisão, extrato do FGTS, registros de ponto e mensagens ou e-mails relacionados ao trabalho. Não é preciso ter tudo para a primeira conversa: o profissional indica o que é relevante.',
       },
     ],
     faq: [
@@ -107,7 +107,7 @@ export const areas: Area[] = [
     seoTitle: 'Advogado Criminalista em Porto Alegre',
     metaDescription:
       'Advogado criminalista em Porto Alegre: defesa em inquérito, prisão em flagrante, audiência de custódia e processo criminal. Atendimento sigiloso.',
-    lead: 'Defesa técnica, sigilosa e atenta a cada etapa — da fase de investigação ao processo.',
+    lead: 'Defesa técnica, sigilosa e atenta a cada etapa, da fase de investigação ao processo.',
     summary: 'Inquérito, flagrante, audiência de custódia, processo e recursos.',
     intro: [
       'Em matéria criminal, decisões tomadas nas primeiras horas podem influenciar todo o desenrolar do caso. Ter orientação técnica desde o início ajuda a garantir que os direitos do investigado ou acusado sejam respeitados.',
@@ -165,7 +165,7 @@ export const areas: Area[] = [
     summary: 'Contratos, indenizações, cobranças, imóveis e sucessões.',
     intro: [
       'O Direito Civil está presente em grande parte das relações do dia a dia: contratos, compra e venda, aluguel, dívidas, danos e heranças. Muitas vezes, uma orientação no momento certo evita um litígio.',
-      'Na DM Advocacia, demandas civis são conduzidas por profissional dedicado à área, tanto na prevenção — análise e elaboração de documentos — quanto na solução de conflitos.',
+      'Na DM Advocacia, demandas civis são conduzidas por profissional dedicado à área, tanto na prevenção, com análise e elaboração de documentos, quanto na solução de conflitos.',
     ],
     situations: [
       'Elaboração, revisão ou descumprimento de contratos',
@@ -177,7 +177,7 @@ export const areas: Area[] = [
       'Conflitos entre vizinhos e condomínios',
     ],
     approach:
-      'O profissional responsável estuda os documentos e o histórico da relação, avalia as alternativas — negociação, notificação, acordo ou ação judicial — e recomenda o caminho mais adequado ao objetivo do cliente.',
+      'O profissional responsável estuda os documentos e o histórico da relação, avalia as alternativas (negociação, notificação, acordo ou ação judicial) e recomenda o caminho mais adequado ao objetivo do cliente.',
     info: [
       {
         title: 'Prazos também existem no Direito Civil',
@@ -199,7 +199,7 @@ export const areas: Area[] = [
       },
       {
         q: 'O inventário pode ser feito em cartório?',
-        a: 'Em determinadas situações, sim — quando há consenso entre os herdeiros e os requisitos legais são atendidos, o inventário pode ser feito por escritura pública, sempre com assistência de advogado.',
+        a: 'Em determinadas situações, sim. Quando há consenso entre os herdeiros e os requisitos legais são atendidos, o inventário pode ser feito por escritura pública, sempre com assistência de advogado.',
       },
     ],
     related: ['direito-do-consumidor', 'direito-das-familias', 'direito-bancario'],
@@ -218,7 +218,7 @@ export const areas: Area[] = [
     summary: 'Divórcio, guarda, pensão alimentícia, união estável e partilha.',
     intro: [
       'Questões familiares envolvem emoções, filhos e patrimônio ao mesmo tempo. Ter um profissional que explique com clareza as alternativas ajuda a tomar decisões mais seguras em um momento difícil.',
-      'Na DM Advocacia, casos de família são conduzidos por profissional dedicado à área, priorizando — sempre que possível — soluções consensuais, sem abrir mão da defesa dos interesses do cliente.',
+      'Na DM Advocacia, casos de família são conduzidos por profissional dedicado à área, priorizando soluções consensuais sempre que possível, sem abrir mão da defesa dos interesses do cliente.',
     ],
     situations: [
       'Divórcio consensual ou litigioso',
@@ -229,11 +229,11 @@ export const areas: Area[] = [
       'Investigação ou reconhecimento de paternidade',
     ],
     approach:
-      'O profissional responsável escuta a história da família, explica direitos e deveres de cada parte, avalia a possibilidade de acordo e conduz o caso com discrição — em cartório, em mediação ou judicialmente.',
+      'O profissional responsável escuta a história da família, explica direitos e deveres de cada parte, avalia a possibilidade de acordo e conduz o caso com discrição, em cartório, em mediação ou judicialmente.',
     info: [
       {
         title: 'Quando há consenso',
-        body: 'O Código de Processo Civil (art. 733) permite que o divórcio e a dissolução de união estável consensuais sejam feitos em cartório, por escritura pública, em determinadas situações — sempre com assistência de advogado.',
+        body: 'O Código de Processo Civil (art. 733) permite que o divórcio e a dissolução de união estável consensuais sejam feitos em cartório, por escritura pública, em determinadas situações, sempre com assistência de advogado.',
       },
       {
         title: 'O interesse dos filhos em primeiro lugar',
@@ -285,7 +285,7 @@ export const areas: Area[] = [
     info: [
       {
         title: 'Compras fora da loja física',
-        body: 'Nas compras feitas fora do estabelecimento comercial — pela internet ou por telefone, por exemplo — o consumidor pode desistir em até sete dias a contar do recebimento (art. 49 do Código de Defesa do Consumidor).',
+        body: 'Nas compras feitas fora do estabelecimento comercial, como pela internet ou por telefone, o consumidor pode desistir em até sete dias a contar do recebimento (art. 49 do Código de Defesa do Consumidor).',
       },
       {
         title: 'Guarde tudo',
@@ -386,7 +386,7 @@ export const areas: Area[] = [
       'Revisão de benefícios e planejamento previdenciário',
     ],
     approach:
-      'O profissional responsável analisa o histórico contributivo (CNIS), os documentos e laudos disponíveis, simula cenários quando cabível e orienta sobre o melhor momento e o caminho mais adequado — administrativo ou judicial.',
+      'O profissional responsável analisa o histórico contributivo (CNIS), os documentos e laudos disponíveis, simula cenários quando cabível e orienta sobre o melhor momento e o caminho mais adequado, administrativo ou judicial.',
     info: [
       {
         title: 'Planejamento previdenciário',
@@ -438,7 +438,7 @@ export const areas: Area[] = [
       'Restituição ou compensação de tributos pagos indevidamente',
     ],
     approach:
-      'O profissional responsável analisa a situação fiscal, os documentos e as notificações recebidas, avalia riscos e oportunidades e orienta sobre defesa, regularização ou planejamento — sempre dentro da legalidade.',
+      'O profissional responsável analisa a situação fiscal, os documentos e as notificações recebidas, avalia riscos e oportunidades e orienta sobre defesa, regularização ou planejamento, sempre dentro da legalidade.',
     info: [
       {
         title: 'Reforma Tributária em transição',

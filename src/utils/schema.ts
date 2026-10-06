@@ -77,7 +77,7 @@ export function personSchema() {
         '@type': 'EducationalOccupationalCredential',
         credentialCategory: 'Registro profissional',
         name: siteConfig.lawyer.oab,
-        recognizedBy: { '@type': 'Organization', name: 'Ordem dos Advogados do Brasil — Seccional RS' },
+        recognizedBy: { '@type': 'Organization', name: 'Ordem dos Advogados do Brasil, Seccional RS' },
       },
       ...education.map((e) => ({
         '@type': 'EducationalOccupationalCredential',

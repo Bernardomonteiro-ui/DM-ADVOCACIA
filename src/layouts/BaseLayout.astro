@@ -34,10 +34,10 @@ const speculationRules = {
     <meta name="theme-color" content="#0f1e33" />
     <meta name="format-detection" content="telephone=no" />
     <SEO {...props} />
-    <!--
+    {/*
       Navegação instantânea (Chromium): pré-renderiza a página interna quando o visitante
       toca ou clica no link (eagerness "conservative": "moderate" pré-renderizava links visíveis no mobile durante o carregamento e piorava o FCP da Home). Navegadores sem suporte ignoram.
-    -->
+    */}
     <script type="speculationrules" is:inline set:html={JSON.stringify(speculationRules)} />
   </head>
   <body>

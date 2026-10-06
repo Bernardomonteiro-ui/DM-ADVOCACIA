@@ -1,6 +1,6 @@
 ---
 title: 'Fui demitido: quais documentos guardar e quais prazos observar'
-description: 'CONTEÚDO DE EXEMPLO — substitua por um artigo real. Orientações gerais sobre documentos e prazos após o fim do contrato de trabalho.'
+description: 'CONTEÚDO DE EXEMPLO. Substitua por um artigo real. Orientações gerais sobre documentos e prazos após o fim do contrato de trabalho.'
 pubDate: 2026-10-06
 area: direito-trabalhista
 draft: true

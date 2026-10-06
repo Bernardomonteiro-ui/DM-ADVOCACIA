@@ -12,7 +12,7 @@ import { breadcrumbSchema, graph, personSchema, webPageSchema } from '@/utils/sc
 import photoProfile from '@/assets/fotos/deivid-marcolino-perfil.jpg';
 import photoFront from '@/assets/fotos/deivid-marcolino-bracos-cruzados.jpg';
 
-const title = `${siteConfig.lawyer.name} — Advogado em Porto Alegre`;
+const title = `${siteConfig.lawyer.name} | Advogado em Porto Alegre`;
 const description = `Conheça ${siteConfig.lawyer.name}, advogado (${siteConfig.lawyer.oab}) com mais de ${siteConfig.lawyer.yearsOfPractice} anos de atuação no Direito e fundador da DM Advocacia, em Porto Alegre.`;
 const crumbs = [
   { name: 'Início', path: '/' },
@@ -71,7 +71,7 @@ const schema = graph(
         <div class="tr__text">
           <p>
             Advogado e empresário, {siteConfig.lawyer.name} soma mais de duas décadas de atuação na área do Direito.
-            Ao longo desse percurso, aprofundou a formação em diferentes ramos — do Direito do Trabalho ao Processo
+            Ao longo desse percurso, aprofundou a formação em diferentes ramos: do Direito do Trabalho ao Processo
             Civil, da Criminologia ao Direito Digital e à Reforma Tributária.
           </p>
           <p>
@@ -79,7 +79,7 @@ const schema = graph(
             todos os temas, cada cliente é atendido por um profissional especializado na área do seu caso.
           </p>
         </div>
-        <!-- [TODO — CONFIRMAR COM CLIENTE] Acrescentar aqui um relato pessoal/história do escritório, se desejado. -->
+        {/* [TODO — CONFIRMAR COM CLIENTE] Acrescentar aqui um relato pessoal/história do escritório, se desejado. */}
       </div>
     </div>
   </section>

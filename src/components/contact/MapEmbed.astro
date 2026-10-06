@@ -118,7 +118,7 @@ import { siteConfig, fullAddress } from '@/config/site';
     root.querySelector('[data-map-load]')?.addEventListener('click', () => {
       const iframe = document.createElement('iframe');
       iframe.src = siteConfig.maps.embed;
-      iframe.title = `Mapa — localização da ${siteConfig.name}`;
+      iframe.title = `Mapa com a localização da ${siteConfig.name}`;
       iframe.loading = 'lazy';
       iframe.referrerPolicy = 'no-referrer-when-downgrade';
       root.replaceChildren(iframe);
