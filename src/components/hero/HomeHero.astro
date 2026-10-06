@@ -11,7 +11,6 @@ import photo from '@/assets/fotos/deivid-marcolino-bracos-cruzados.jpg';
     <div class="hero__copy">
       <h1 id="hero-title" class="hero__h1">
         <span class="eyebrow hero__eyebrow" data-reveal style="--d:1">
-          <span class="hero__eyebrow-rule" aria-hidden="true"></span>
           Escritório de advocacia em Porto Alegre
         </span>
         <span class="display hero__title" data-reveal="lines" style="--d:2">
@@ -39,7 +38,7 @@ import photo from '@/assets/fotos/deivid-marcolino-bracos-cruzados.jpg';
           src={photo}
           formats={['avif', 'webp']}
           widths={[420, 640, 860, 1090]}
-          sizes="(min-width: 64rem) 38vw, 92vw"
+          sizes="(min-width: 64rem) 46vw, 92vw"
           alt={`${siteConfig.lawyer.name}, advogado e fundador da DM Advocacia, de terno escuro e braços cruzados`}
           loading="eager"
           fetchpriority="high"
@@ -96,8 +95,8 @@ import photo from '@/assets/fotos/deivid-marcolino-bracos-cruzados.jpg';
   }
   @media (min-width: 64rem) {
     .hero__grid {
-      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-      align-items: end;
+      grid-template-columns: minmax(0, 6fr) minmax(0, 6fr);
+      align-items: center;
       gap: clamp(2rem, 4vw, 5rem);
       min-height: min(calc(100svh - var(--header-h) - 9rem), 46rem);
     }
@@ -115,11 +114,6 @@ import photo from '@/assets/fotos/deivid-marcolino-bracos-cruzados.jpg';
     gap: 1rem;
     color: var(--color-gold-ink);
   }
-  .hero__eyebrow-rule {
-    width: 2.5rem;
-    height: 1px;
-    background: var(--color-gold);
-  }
   .hero__title {
     display: block;
     margin-top: clamp(1.5rem, 3vw, 2.25rem);
@@ -127,10 +121,9 @@ import photo from '@/assets/fotos/deivid-marcolino-bracos-cruzados.jpg';
   }
   .hero__title-em {
     color: var(--color-navy-700);
-    font-variation-settings: 'opsz' 72;
   }
   .hero__title-em em {
-    font-weight: 300;
+    font-weight: 400;
   }
   .hero__lead {
     margin-top: clamp(1.75rem, 3vw, 2.5rem);
@@ -152,15 +145,16 @@ import photo from '@/assets/fotos/deivid-marcolino-bracos-cruzados.jpg';
   }
   .hero__frame {
     position: relative;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 4 / 5;
     overflow: hidden;
     background: #2a2b2e;
   }
   @media (min-width: 64rem) {
+    /* Largura total da coluna (legenda sempre sobre a foto); altura limitada à tela
+       para os botões do hero continuarem visíveis sem rolar. */
     .hero__frame {
-      aspect-ratio: 4 / 5;
-      max-height: calc(100svh - var(--header-h) - 8rem);
-      margin-left: auto;
+      aspect-ratio: auto;
+      height: clamp(30rem, calc(100svh - var(--header-h) - 7rem), 46rem);
     }
   }
   .hero__frame :global(img),
@@ -168,25 +162,25 @@ import photo from '@/assets/fotos/deivid-marcolino-bracos-cruzados.jpg';
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: 50% 18%;
+    object-position: 50% 12%;
   }
   /* Leve tom navy sobre o fundo cinza da foto de estúdio */
   .hero__frame::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgb(13 26 43 / 0) 55%, rgb(13 26 43 / 0.55) 100%);
-    mix-blend-mode: multiply;
+    background: linear-gradient(180deg, rgb(10 20 36 / 0) 58%, rgb(10 20 36 / 0.82) 100%);
     pointer-events: none;
   }
   .hero__caption {
     position: absolute;
-    left: 1.25rem;
-    bottom: 1.1rem;
+    left: 1.5rem;
+    bottom: 1.35rem;
+    z-index: 1;
     display: flex;
     flex-direction: column;
     gap: 0.2rem;
-    color: var(--color-paper);
+    color: #fff;
     font-size: 0.875rem;
     letter-spacing: 0;
   }

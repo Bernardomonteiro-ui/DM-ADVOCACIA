@@ -19,7 +19,7 @@ const { kicker, title, lead, breadcrumbs } = Astro.props;
   <div class="wrap">
     <Breadcrumbs items={breadcrumbs} />
     <h1 id="page-title" class="ph__h1">
-      <span class="ph__kicker"><span class="ph__rule" aria-hidden="true"></span>{kicker}</span>
+      <span class="ph__kicker">{kicker}</span>
       <span class="ph__title" data-reveal="lines">
         <span class="ln"><span>{title}</span></span>
       </span>
@@ -52,17 +52,11 @@ const { kicker, title, lead, breadcrumbs } = Astro.props;
     line-height: 1.4;
     color: var(--color-gold-ink);
   }
-  .ph__rule {
-    flex: none;
-    width: 2.5rem;
-    height: 1px;
-    background: var(--color-gold);
-  }
   .ph__title {
     display: block;
     margin-top: 1rem;
-    font-size: clamp(2.6rem, 6.4vw, 6rem);
-    line-height: 0.98;
+    font-size: clamp(2.3rem, 5.4vw, 5rem);
+    line-height: 1.02;
     letter-spacing: -0.026em;
     max-width: 16ch;
     color: var(--color-navy-900);

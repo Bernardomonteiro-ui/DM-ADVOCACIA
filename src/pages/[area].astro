@@ -202,21 +202,11 @@ const schema = graph(
   }
   .sit__item {
     position: relative;
-    padding: 1.1rem 0 1.1rem 1.75rem;
+    padding: 1.1rem 0;
     border-top: 1px solid rgb(239 239 236 / 0.14);
     font-family: var(--font-serif);
     font-size: clamp(1.2rem, 1.7vw, 1.4rem);
     line-height: 1.35;
-  }
-  /* Marcador: traço de latão, não número — a lista não é uma sequência */
-  .sit__item::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 1.85rem;
-    width: 0.9rem;
-    height: 1px;
-    background: var(--color-gold-soft);
   }
   .sit__note {
     margin-top: 2rem;
@@ -258,7 +248,7 @@ const schema = graph(
   .how__n {
     font-size: 2rem;
     line-height: 1;
-    font-weight: 300;
+    font-weight: 400;
     color: var(--color-gold-ink);
   }
   .how__t {

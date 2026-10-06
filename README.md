@@ -47,7 +47,7 @@ O workflow [.github/workflows/deploy.yml](.github/workflows/deploy.yml) faz o bu
 ## Direção de design (manter nas próximas alterações)
 
 - **Paleta:** navy `#0F1E33`, neutro frio `#EFEFEC` (não usar creme amarelado), branco, latão `#A8834E` só em linhas/indicadores; texto em latão usa `#7C5E33` (contraste AA).
-- **Tipografia:** Newsreader (títulos) + Instrument Sans (interface). Itálico **somente** no slogan (“Soluções em cada caso.”) e no lema do logo.
+- **Tipografia:** Besley (títulos — Clarendon, a letra de documentos oficiais; escolhida em comparação com Newsreader, Brygada 1918, Gloock e Petrona) + Instrument Sans (interface). Peso mínimo da Besley é 400. Itálico **somente** no slogan (“Soluções em cada caso.”) e no lema do logo.
 - **Sem rótulos em caixa alta** acima dos títulos; o título diz o que é a seção. Botões em caixa normal; links de texto sublinhados, sem seta.
 - **Numeração só em sequência real** (passos do atendimento) e nas 8 áreas (ordem de prioridade comercial). Listas de situações e formação não são numeradas.
 - **Motion:** um único momento orquestrado (abertura do hero da Home) + revelação das fotos + declaração de posicionamento. Não adicionar fade em parágrafos: atrasa o LCP (medido: /contato caiu de 3,7 s para 1,9 s ao remover).
@@ -59,7 +59,7 @@ O workflow [.github/workflows/deploy.yml](.github/workflows/deploy.yml) faz o bu
 - **Mapa**: carregado sob demanda (fachada), para não pesar no carregamento nem gravar cookies sem ação do visitante.
 - **Formulário de contato**: monta a mensagem e abre o WhatsApp. Nenhum dado é enviado ou armazenado pelo site.
 - **Motion**: CSS + um IntersectionObserver pequeno; respeita `prefers-reduced-motion`; sem JS o conteúdo fica visível.
-- **Fontes**: apenas o eixo de peso das variáveis (≈150 KB, antes ≈330 KB), auto-hospedadas e com preload.
+- **Fontes**: apenas o eixo de peso das variáveis (≈105 KB, antes ≈330 KB), auto-hospedadas e com preload.
 - **Navegação**: Speculation Rules com `eagerness: conservative` (pré-renderiza ao tocar/clicar). `moderate` foi testado e descartado.
 - **SEO**: o H1 das páginas internas inclui a intenção de busca (“Advogado trabalhista em Porto Alegre” + “Direito Trabalhista”); descrições ≤ 160 caracteres.
 - **Privacidade**: `/politica-de-privacidade` descreve o funcionamento real (sem cookies/analytics). Atualizar se forem adicionadas ferramentas de análise ou pixel.
