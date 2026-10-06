@@ -1,0 +1,81 @@
+---
+import Icon from '@/components/ui/Icon.astro';
+import { areaBySlug, type Area } from '@/data/areas';
+
+interface Props {
+  slugs: string[];
+}
+const related = Astro.props.slugs.map(areaBySlug).filter((a): a is Area => Boolean(a));
+---
+
+<ul class="ra">
+  {
+    related.map((a) => (
+      <li>
+        <a href={`/${a.slug}`} class="ra__link">
+          <span class="numeral ra__num">{a.number}</span>
+          <span class="ra__name">{a.name}</span>
+          <span class="ra__sum">{a.summary}</span>
+          <span class="ra__arrow" aria-hidden="true"><Icon name="arrow" size={18} /></span>
+        </a>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .ra {
+    display: grid;
+    gap: 0;
+    grid-template-columns: 1fr;
+    border-top: 1px solid rgb(13 26 43 / 0.14);
+  }
+  @media (min-width: 48rem) {
+    .ra {
+      grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+      border-top: 0;
+    }
+  }
+  .ra__link {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    height: 100%;
+    padding: 1.6rem 0;
+    border-bottom: 1px solid rgb(13 26 43 / 0.14);
+  }
+  @media (min-width: 48rem) {
+    .ra__link {
+      padding: 1.75rem 2rem 2rem;
+      border-bottom: 0;
+      border-left: 1px solid rgb(13 26 43 / 0.14);
+    }
+    .ra li:first-child .ra__link {
+      padding-left: 0;
+      border-left: 0;
+    }
+  }
+  .ra__num {
+    font-size: 0.85rem;
+    color: var(--color-gold-ink);
+  }
+  .ra__name {
+    font-family: var(--font-serif);
+    font-size: 1.6rem;
+    line-height: 1.15;
+  }
+  .ra__sum {
+    color: var(--color-muted);
+    font-size: 0.925rem;
+  }
+  .ra__arrow {
+    margin-top: 0.5rem;
+    transition: transform var(--dur-hover) var(--ease-out-quint), color var(--dur-hover);
+  }
+  .ra__link:hover .ra__arrow,
+  .ra__link:focus-visible .ra__arrow {
+    transform: translateX(6px);
+    color: var(--color-gold-ink);
+  }
+</style>

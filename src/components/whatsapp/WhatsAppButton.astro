@@ -1,0 +1,24 @@
+---
+/** CTA de WhatsApp. O número vem sempre de siteConfig — nunca digitado aqui. */
+import Button from '@/components/ui/Button.astro';
+import { whatsappLink, whatsappMessages } from '@/config/site';
+
+interface Props {
+  message?: string;
+  variant?: 'solid' | 'gold' | 'text' | 'text-light';
+  label?: string;
+  class?: string;
+  track?: string;
+}
+const {
+  message = whatsappMessages.general,
+  variant = 'solid',
+  label = 'Falar no WhatsApp',
+  class: className,
+  track = 'whatsapp',
+} = Astro.props;
+---
+
+<Button href={whatsappLink(message)} variant={variant} icon="whatsapp" class={className} track={track}>
+  {label}
+</Button>

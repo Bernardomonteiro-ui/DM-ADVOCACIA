@@ -1,0 +1,61 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/hero/PageHero.astro';
+import AreasIndex from '@/components/areas/AreasIndex.astro';
+import ContactCta from '@/components/contact/ContactCta.astro';
+import { areas } from '@/data/areas';
+import { breadcrumbSchema, graph, webPageSchema } from '@/utils/schema';
+
+const title = 'Áreas de Atuação — Advocacia em Porto Alegre';
+const description =
+  'Áreas de atuação da DM Advocacia em Porto Alegre: trabalhista, criminal, civil, famílias, consumidor, bancário, previdenciário e tributário.';
+const crumbs = [
+  { name: 'Início', path: '/' },
+  { name: 'Áreas de atuação', path: '/areas-de-atuacao' },
+];
+const schema = graph(
+  webPageSchema({ path: '/areas-de-atuacao', title, description, type: 'CollectionPage' }),
+  breadcrumbSchema(crumbs),
+  {
+    '@type': 'ItemList',
+    itemListElement: areas.map((a, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: a.name,
+      url: new URL(`/${a.slug}`, Astro.site).toString(),
+    })),
+  },
+);
+---
+
+<BaseLayout title={title} description={description} schema={schema}>
+  <PageHero
+    kicker="Áreas de atuação da DM Advocacia"
+    title="Um profissional para cada área do Direito."
+    lead="Na DM Advocacia, o seu caso é direcionado a quem atua na área correspondente. Escolha o tema mais próximo da sua situação para saber mais."
+    breadcrumbs={crumbs}
+  />
+
+  <section class="section-y list" aria-label="Lista de áreas de atuação">
+    <div class="wrap">
+      <AreasIndex headingLevel="h2" />
+      <p class="note">
+        Não encontrou o seu tema? Entre em contato — indicaremos se o caso pode ser atendido e por qual profissional.
+      </p>
+    </div>
+  </section>
+
+  <ContactCta />
+</BaseLayout>
+
+<style>
+  .list {
+    background: #fff;
+  }
+  .note {
+    margin-top: 2.5rem;
+    color: var(--color-muted);
+    font-size: 0.95rem;
+    max-width: 40rem;
+  }
+</style>

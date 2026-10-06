@@ -1,0 +1,332 @@
+---
+/** Páginas individuais das áreas: /direito-trabalhista, /direito-criminal, … */
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/hero/PageHero.astro';
+import WhatsAppButton from '@/components/whatsapp/WhatsAppButton.astro';
+import Faq from '@/components/ui/Faq.astro';
+import RelatedAreas from '@/components/areas/RelatedAreas.astro';
+import ArticleList from '@/components/articles/ArticleList.astro';
+import ContactCta from '@/components/contact/ContactCta.astro';
+import { areas, type Area } from '@/data/areas';
+import { getArticles } from '@/utils/articles';
+import { breadcrumbSchema, faqSchema, graph, serviceSchema, webPageSchema } from '@/utils/schema';
+
+export const getStaticPaths = (() =>
+  areas.map((area) => ({ params: { area: area.slug }, props: { area } }))) satisfies GetStaticPaths;
+
+interface Props {
+  area: Area;
+}
+const { area } = Astro.props;
+const path = `/${area.slug}`;
+const crumbs = [
+  { name: 'Início', path: '/' },
+  { name: 'Áreas de atuação', path: '/areas-de-atuacao' },
+  { name: area.name, path },
+];
+// Linha de contexto do H1 com a intenção de busca: 'Advogado trabalhista em Porto Alegre'
+const kicker = area.seoTitle.replace(/ (\S+) em Porto Alegre$/, (_, w: string) => ` ${w.toLowerCase()} em Porto Alegre`);
+const articles = (await getArticles()).filter((a) => a.data.area === area.slug).slice(0, 3);
+
+const steps = [
+  { n: '01', t: 'Escuta', d: 'Você relata a situação, presencialmente ou por vídeo.' },
+  { n: '02', t: 'Direcionamento', d: `O caso é conduzido por profissional dedicado ao ${area.name}.` },
+  { n: '03', t: 'Análise e orientação', d: 'Documentos, prazos e caminhos possíveis explicados com clareza.' },
+];
+
+const schema = graph(
+  webPageSchema({ path, title: area.seoTitle, description: area.metaDescription }),
+  serviceSchema(area),
+  breadcrumbSchema(crumbs),
+  faqSchema(area.faq),
+);
+---
+
+<BaseLayout title={area.seoTitle} description={area.metaDescription} schema={schema}>
+  <PageHero kicker={kicker} title={area.name} lead={area.lead} breadcrumbs={crumbs}>
+    <WhatsAppButton message={area.whatsappMessage} label="Conversar sobre meu caso" track={`area-hero-${area.slug}`} />
+  </PageHero>
+
+  <!-- Descrição -->
+  <section class="intro section-y" aria-labelledby="intro-title">
+    <div class="wrap intro__grid">
+      <h2 id="intro-title" class="intro__label">Sobre a área</h2>
+      <div>
+        <p class="intro__first">{area.intro[0]}</p>
+        {area.intro.slice(1).map((p) => <p class="intro__p">{p}</p>)}
+      </div>
+    </div>
+  </section>
+
+  <!-- Situações (lista exemplificativa, não sequencial) -->
+  <section class="sit section-y" aria-labelledby="sit-title">
+    <div class="wrap">
+      <h2 id="sit-title" class="h-lg">Quando buscar orientação</h2>
+      <ul class="sit__list">
+        {area.situations.map((s) => <li class="sit__item">{s}</li>)}
+      </ul>
+      <p class="sit__note">
+        A lista é exemplificativa. Se a sua situação não aparece aqui, entre em contato: o caso será avaliado
+        individualmente.
+      </p>
+    </div>
+  </section>
+
+  <!-- Atuação da equipe (sequência real: numerada) -->
+  <section class="how section-y" aria-labelledby="how-title">
+    <div class="wrap how__grid">
+      <div>
+        <h2 id="how-title" class="h-lg">Como o caso é conduzido</h2>
+        <p class="lead how__text">{area.approach}</p>
+      </div>
+      <ol class="how__steps">
+        {
+          steps.map((s) => (
+            <li class="how__step">
+              <span class="numeral how__n">{s.n}</span>
+              <div>
+                <h3 class="how__t">{s.t}</h3>
+                <p class="how__d">{s.d}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- Conteúdo informativo -->
+  <section class="info section-y" aria-labelledby="info-title">
+    <div class="wrap">
+      <h2 id="info-title" class="h-lg">Bom saber</h2>
+      <div class="info__grid">
+        {
+          area.info.map((b) => (
+            <article class="info__item">
+              <h3 class="info__t">{b.title}</h3>
+              <p class="info__b">{b.body}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faqs section-y" aria-labelledby="faq-title">
+    <div class="wrap faqs__grid">
+      <h2 id="faq-title" class="h-lg">Perguntas frequentes sobre {area.name}</h2>
+      <Faq items={area.faq} />
+    </div>
+  </section>
+
+  {
+    articles.length > 0 && (
+      <section class="arts section-y" aria-labelledby="arts-title">
+        <div class="wrap">
+          <h2 id="arts-title" class="h-lg arts__title">
+            Artigos sobre {area.name}
+          </h2>
+          <ArticleList articles={articles} />
+        </div>
+      </section>
+    )
+  }
+
+  <ContactCta message={area.whatsappMessage} title={`Converse com quem atua em ${area.name}.`} />
+
+  <!-- Áreas relacionadas -->
+  <section class="rel section-y" aria-labelledby="rel-title">
+    <div class="wrap">
+      <h2 id="rel-title" class="h-lg rel__title">Áreas relacionadas</h2>
+      <RelatedAreas slugs={area.related} />
+      <p class="disclaimer">
+        Conteúdo de caráter informativo, que não substitui a análise individual de cada caso por um advogado.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Descrição */
+  .intro {
+    background: #fff;
+  }
+  .intro__grid {
+    display: grid;
+    gap: 1.25rem;
+  }
+  @media (min-width: 64rem) {
+    .intro__grid {
+      grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+      gap: clamp(2rem, 5vw, 6rem);
+    }
+  }
+  .intro__label {
+    padding-top: 0.5rem;
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0;
+    color: var(--color-gold-ink);
+  }
+  .intro__first {
+    font-family: var(--font-serif);
+    font-size: clamp(1.5rem, 2.5vw, 2.15rem);
+    line-height: 1.32;
+    letter-spacing: -0.01em;
+    max-width: 38rem;
+  }
+  .intro__p {
+    margin-top: 1.5rem;
+    color: var(--color-muted);
+    max-width: 38rem;
+  }
+
+  /* Situações */
+  .sit {
+    background: var(--color-navy-900);
+    color: var(--color-paper);
+  }
+  .sit__list {
+    margin-top: clamp(2rem, 4vw, 3rem);
+    display: grid;
+    grid-template-columns: 1fr;
+    column-gap: clamp(2rem, 5vw, 5rem);
+  }
+  @media (min-width: 48rem) {
+    .sit__list {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .sit__item {
+    position: relative;
+    padding: 1.1rem 0 1.1rem 1.75rem;
+    border-top: 1px solid rgb(239 239 236 / 0.14);
+    font-family: var(--font-serif);
+    font-size: clamp(1.2rem, 1.7vw, 1.4rem);
+    line-height: 1.35;
+  }
+  /* Marcador: traço de latão, não número — a lista não é uma sequência */
+  .sit__item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 1.85rem;
+    width: 0.9rem;
+    height: 1px;
+    background: var(--color-gold-soft);
+  }
+  .sit__note {
+    margin-top: 2rem;
+    font-size: 0.95rem;
+    color: var(--color-mist);
+    max-width: 40rem;
+  }
+
+  /* Como o caso é conduzido */
+  .how {
+    background: var(--color-paper);
+  }
+  .how__grid {
+    display: grid;
+    gap: 2.5rem;
+  }
+  @media (min-width: 64rem) {
+    .how__grid {
+      grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+      gap: clamp(3rem, 6vw, 7rem);
+      align-items: start;
+    }
+  }
+  .how__text {
+    margin-top: 1.5rem;
+    color: var(--color-muted);
+    max-width: 36rem;
+  }
+  .how__steps {
+    border-top: 1px solid rgb(15 30 51 / 0.14);
+  }
+  .how__step {
+    display: grid;
+    grid-template-columns: 3rem 1fr;
+    gap: 1rem;
+    padding-block: 1.5rem;
+    border-bottom: 1px solid rgb(15 30 51 / 0.14);
+  }
+  .how__n {
+    font-size: 2rem;
+    line-height: 1;
+    font-weight: 300;
+    color: var(--color-gold-ink);
+  }
+  .how__t {
+    font-size: 1.4rem;
+  }
+  .how__d {
+    margin-top: 0.35rem;
+    color: var(--color-muted);
+  }
+
+  /* Bom saber */
+  .info {
+    background: #fff;
+  }
+  .info__grid {
+    margin-top: clamp(2rem, 4vw, 3rem);
+    display: grid;
+    gap: 2.5rem;
+  }
+  @media (min-width: 48rem) {
+    .info__grid {
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(2rem, 5vw, 6rem);
+    }
+  }
+  .info__item {
+    padding-top: 1.25rem;
+    border-top: 2px solid var(--color-gold);
+  }
+  .info__t {
+    font-size: clamp(1.45rem, 2.2vw, 1.85rem);
+    line-height: 1.2;
+  }
+  .info__b {
+    margin-top: 0.85rem;
+    color: var(--color-muted);
+    max-width: 34rem;
+  }
+
+  /* FAQ */
+  .faqs {
+    background: var(--color-paper);
+  }
+  .faqs__grid {
+    display: grid;
+    gap: 2rem;
+  }
+  @media (min-width: 64rem) {
+    .faqs__grid {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      gap: clamp(3rem, 6vw, 7rem);
+      align-items: start;
+    }
+  }
+
+  .arts {
+    background: var(--color-paper-2);
+  }
+  .arts__title,
+  .rel__title {
+    margin-bottom: 2rem;
+  }
+  .rel {
+    background: #fff;
+  }
+  .disclaimer {
+    margin-top: 3rem;
+    font-size: 0.875rem;
+    color: var(--color-muted);
+  }
+</style>

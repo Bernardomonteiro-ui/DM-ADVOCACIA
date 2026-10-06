@@ -1,0 +1,116 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/hero/PageHero.astro';
+import ArticleList from '@/components/articles/ArticleList.astro';
+import Button from '@/components/ui/Button.astro';
+import { siteConfig } from '@/config/site';
+import { areas } from '@/data/areas';
+import { getArticles } from '@/utils/articles';
+import { breadcrumbSchema, graph, webPageSchema } from '@/utils/schema';
+
+const articles = await getArticles();
+const categories = areas.filter((a) => articles.some((art) => art.data.area === a.slug));
+
+const title = 'Artigos Jurídicos';
+const description =
+  'Artigos da DM Advocacia sobre Direito Trabalhista, Criminal, Civil, das Famílias, do Consumidor, Bancário, Previdenciário e Tributário, em linguagem clara.';
+const crumbs = [
+  { name: 'Início', path: '/' },
+  { name: 'Artigos', path: '/artigos' },
+];
+const schema = graph(
+  webPageSchema({ path: '/artigos', title, description, type: 'CollectionPage' }),
+  breadcrumbSchema(crumbs),
+);
+---
+
+<BaseLayout title={title} description={description} schema={schema} noindex={articles.length === 0}>
+  <PageHero
+    kicker="Artigos jurídicos"
+    title="Direito explicado com clareza."
+    lead="Conteúdos sobre as dúvidas mais frequentes em cada área de atuação, para ajudar você a entender sua situação antes de qualquer decisão."
+    breadcrumbs={crumbs}
+  />
+
+  <section class="section-y body" aria-label="Lista de artigos">
+    <div class="wrap">
+      {
+        categories.length > 0 && (
+          <nav class="cats" aria-label="Categorias">
+            <a href="/artigos" class="cats__link" aria-current="page">
+              Todos
+            </a>
+            {categories.map((c) => (
+              <a href={`/artigos/categoria/${c.slug}`} class="cats__link">
+                {c.short}
+              </a>
+            ))}
+          </nav>
+        )
+      }
+
+      {
+        articles.length > 0 ? (
+          <ArticleList articles={articles} />
+        ) : (
+          <div class="empty">
+            <p class="h-lg empty__title">Os primeiros artigos estão em preparação.</p>
+            <p class="empty__text">
+              Enquanto isso, conheça as áreas de atuação ou acompanhe a DM Advocacia no Instagram.
+            </p>
+            <div class="empty__links">
+              <Button href="/areas-de-atuacao" variant="text">
+                Áreas de atuação
+              </Button>
+              <Button href={siteConfig.social.instagram} variant="text" external>
+                Instagram
+              </Button>
+            </div>
+          </div>
+        )
+      }
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .body {
+    background: #fff;
+  }
+  .cats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2.5rem;
+  }
+  .cats__link {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    box-shadow: inset 0 0 0 1px rgb(13 26 43 / 0.16);
+    transition: background-color 0.3s, color 0.3s;
+  }
+  .cats__link:hover,
+  .cats__link[aria-current='page'] {
+    background: var(--color-navy-900);
+    color: var(--color-paper);
+    box-shadow: none;
+  }
+  .empty {
+    max-width: 40rem;
+    border-top: 1px solid rgb(13 26 43 / 0.14);
+    padding-top: 2rem;
+  }
+  .empty__title {
+    font-size: clamp(1.6rem, 2.6vw, 2.2rem);
+  }
+  .empty__text {
+    margin-top: 1rem;
+    color: var(--color-muted);
+  }
+  .empty__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 2.5rem;
+    margin-top: 0.5rem;
+  }
+</style>

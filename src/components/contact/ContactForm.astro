@@ -1,0 +1,221 @@
+---
+/**
+ * Formulário que monta uma mensagem e abre o WhatsApp.
+ * Não há back-end: nenhum dado é enviado ou armazenado pelo site.
+ * Sem JS, o formulário cai no link padrão do WhatsApp (action do <form>).
+ */
+import Icon from '@/components/ui/Icon.astro';
+import { siteConfig } from '@/config/site';
+import { areas } from '@/data/areas';
+---
+
+<form class="cf" action={`https://wa.me/${siteConfig.contact.whatsapp}`} method="get" target="_blank" data-contact-form novalidate>
+  <div class="cf__field">
+    <label for="cf-nome">Seu nome</label>
+    <input id="cf-nome" name="nome" type="text" autocomplete="name" required aria-describedby="cf-nome-erro" />
+    <p class="cf__error" id="cf-nome-erro" data-error-for="nome" hidden>Informe seu nome.</p>
+  </div>
+
+  <div class="cf__field">
+    <label for="cf-area">Assunto</label>
+    <div class="cf__select">
+      <select id="cf-area" name="area">
+        <option value="">Ainda não sei / outro assunto</option>
+        {areas.map((a) => <option value={a.name}>{a.name}</option>)}
+      </select>
+    </div>
+  </div>
+
+  <fieldset class="cf__field">
+    <legend class="cf__legend">Prefiro atendimento</legend>
+    <div class="cf__radios">
+      <label><input type="radio" name="modo" value="presencial" checked /> Presencial</label>
+      <label><input type="radio" name="modo" value="por chamada de vídeo" /> Por vídeo</label>
+    </div>
+  </fieldset>
+
+  <div class="cf__field">
+    <label for="cf-msg">Conte brevemente a situação <span class="cf__opt">(opcional)</span></label>
+    <textarea id="cf-msg" name="mensagem" rows="4" maxlength="600" aria-describedby="cf-msg-hint"></textarea>
+    <p class="cf__hint" id="cf-msg-hint">
+      Evite compartilhar dados sensíveis aqui. Os detalhes podem ser tratados no atendimento.
+    </p>
+  </div>
+
+  <button type="submit" class="cf__submit">
+    <Icon name="whatsapp" size={18} />
+    Continuar no WhatsApp
+    <span class="sr-only"> (abre em nova aba)</span>
+  </button>
+  <p class="cf__privacy">
+    Ao continuar, você será direcionado ao WhatsApp com a mensagem preenchida. Nenhuma informação é armazenada neste
+    site.
+  </p>
+</form>
+
+<style>
+  .cf {
+    display: grid;
+    gap: 1.5rem;
+  }
+  .cf__field {
+    display: grid;
+    gap: 0.5rem;
+  }
+  fieldset.cf__field {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    min-width: 0;
+  }
+  .cf label,
+  .cf__legend {
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0;
+    color: var(--color-navy-900);
+  }
+  .cf__opt {
+    text-transform: none;
+    letter-spacing: 0;
+    color: var(--color-muted);
+    font-weight: 400;
+  }
+  .cf input[type='text'],
+  .cf select,
+  .cf textarea {
+    width: 100%;
+    padding: 0.85rem 0;
+    font: inherit;
+    font-size: 1.05rem;
+    color: var(--color-ink);
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid rgb(13 26 43 / 0.25);
+    border-radius: 0;
+    transition: border-color 0.3s;
+  }
+  .cf textarea {
+    resize: vertical;
+    min-height: 7rem;
+  }
+  .cf input:focus-visible,
+  .cf select:focus-visible,
+  .cf textarea:focus-visible {
+    outline: none;
+    border-bottom-color: var(--color-gold);
+    box-shadow: 0 1px 0 0 var(--color-gold);
+  }
+  .cf input[aria-invalid='true'] {
+    border-bottom-color: #a33a2b;
+  }
+  .cf__select {
+    position: relative;
+  }
+  .cf__select::after {
+    content: '';
+    position: absolute;
+    right: 0.25rem;
+    top: 50%;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-right: 1px solid currentColor;
+    border-bottom: 1px solid currentColor;
+    transform: translateY(-70%) rotate(45deg);
+    pointer-events: none;
+  }
+  .cf select {
+    appearance: none;
+    padding-right: 1.5rem;
+  }
+  .cf__legend {
+    padding: 0;
+    margin-bottom: 0.5rem;
+  }
+  .cf__radios {
+    display: flex;
+    gap: 1.75rem;
+    padding-top: 0.35rem;
+  }
+  .cf__radios label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 1rem;
+    font-weight: 400;
+    cursor: pointer;
+  }
+  .cf__radios input {
+    accent-color: var(--color-navy-900);
+    width: 1.1rem;
+    height: 1.1rem;
+  }
+  .cf__hint,
+  .cf__privacy {
+    font-size: 0.8rem;
+    color: var(--color-muted);
+  }
+  .cf__error {
+    font-size: 0.85rem;
+    color: #a33a2b;
+  }
+  .cf__submit {
+    justify-self: start;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-height: 3.4rem;
+    padding-inline: 1.75rem;
+    background: var(--color-navy-900);
+    color: var(--color-paper);
+    font-size: 1rem;
+    font-weight: 550;
+    cursor: pointer;
+    transition: background-color var(--dur-hover) ease-out;
+  }
+  .cf__submit :global(svg) {
+    color: var(--color-gold-soft);
+  }
+  .cf__submit:hover {
+    background: var(--color-navy-700);
+  }
+</style>
+
+<script>
+  import { whatsappLink } from '@/config/site';
+
+  document.querySelectorAll<HTMLFormElement>('[data-contact-form]').forEach((form) => {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      const nome = String(data.get('nome') ?? '').trim();
+      const area = String(data.get('area') ?? '').trim();
+      const modo = String(data.get('modo') ?? '').trim();
+      const msg = String(data.get('mensagem') ?? '').trim();
+
+      const nomeInput = form.querySelector<HTMLInputElement>('#cf-nome');
+      const err = form.querySelector<HTMLElement>('[data-error-for="nome"]');
+      if (!nome) {
+        nomeInput?.setAttribute('aria-invalid', 'true');
+        if (err) err.hidden = false;
+        nomeInput?.focus();
+        return;
+      }
+      nomeInput?.removeAttribute('aria-invalid');
+      if (err) err.hidden = true;
+
+      const linhas = [
+        `Olá! Meu nome é ${nome}.`,
+        area
+          ? `Gostaria de conversar com a DM Advocacia sobre uma questão de ${area}.`
+          : 'Gostaria de agendar um atendimento com a DM Advocacia.',
+        `Prefiro atendimento ${modo}.`,
+      ];
+      if (msg) linhas.push('', msg);
+
+      window.open(whatsappLink(linhas.join('\n')), '_blank', 'noopener');
+    });
+  });
+</script>

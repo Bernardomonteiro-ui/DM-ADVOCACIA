@@ -1,0 +1,385 @@
+---
+import { Picture } from 'astro:assets';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
+import WhatsAppButton from '@/components/whatsapp/WhatsAppButton.astro';
+import ContactCta from '@/components/contact/ContactCta.astro';
+import { siteConfig, whatsappMessages } from '@/config/site';
+import { education, team } from '@/data/about';
+import { areaBySlug, areas } from '@/data/areas';
+import { breadcrumbSchema, graph, personSchema, webPageSchema } from '@/utils/schema';
+import photoProfile from '@/assets/fotos/deivid-marcolino-perfil.jpg';
+import photoFront from '@/assets/fotos/deivid-marcolino-bracos-cruzados.jpg';
+
+const title = `${siteConfig.lawyer.name} — Advogado em Porto Alegre`;
+const description = `Conheça ${siteConfig.lawyer.name}, advogado (${siteConfig.lawyer.oab}) com mais de ${siteConfig.lawyer.yearsOfPractice} anos de atuação no Direito e fundador da DM Advocacia, em Porto Alegre.`;
+const crumbs = [
+  { name: 'Início', path: '/' },
+  { name: 'Sobre', path: '/sobre' },
+];
+const schema = graph(
+  webPageSchema({ path: '/sobre', title, description, type: 'AboutPage' }),
+  personSchema(),
+  breadcrumbSchema(crumbs),
+);
+---
+
+<BaseLayout title={title} description={description} type="profile" schema={schema}>
+  <!-- Hero com retrato -->
+  <section class="sh" aria-labelledby="page-title">
+    <div class="wrap sh__grid">
+      <div class="sh__copy">
+        <Breadcrumbs items={crumbs} />
+        <h1 id="page-title" class="sh__h1">
+          <span class="sh__eyebrow"><span class="sh__rule" aria-hidden="true"></span>Advogado em Porto Alegre</span>
+          <span class="sh__title" data-reveal="lines">
+            <span class="ln"><span>Deivid</span></span>
+            <span class="ln"><span>Marcolino</span></span>
+          </span>
+        </h1>
+        <p class="sh__role">Advogado e empresário, fundador da DM Advocacia</p>
+        <p class="lead sh__lead">
+          Mais de {siteConfig.lawyer.yearsOfPractice} anos de atuação na área do Direito e uma convicção que orienta o
+          escritório: cada caso merece ser conduzido por quem conhece a fundo a sua área.
+        </p>
+        <p class="sh__oab">{siteConfig.lawyer.oab}</p>
+      </div>
+      <figure class="sh__figure">
+        <div class="sh__frame" data-reveal="clip">
+          <Picture
+            src={photoProfile}
+            formats={['avif', 'webp']}
+            widths={[480, 760, 1000, 1299]}
+            sizes="(min-width: 64rem) 46vw, 100vw"
+            alt={`${siteConfig.lawyer.name}, advogado, em retrato de perfil com terno escuro`}
+            loading="eager"
+            fetchpriority="high"
+          />
+        </div>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Trajetória -->
+  <section class="tr section-y" aria-labelledby="tr-title">
+    <div class="wrap tr__grid">
+      <h2 id="tr-title" class="tr__title">
+        Mais de {siteConfig.lawyer.yearsOfPractice} anos de atuação no Direito.
+      </h2>
+      <div>
+        <div class="tr__text">
+          <p>
+            Advogado e empresário, {siteConfig.lawyer.name} soma mais de duas décadas de atuação na área do Direito.
+            Ao longo desse percurso, aprofundou a formação em diferentes ramos — do Direito do Trabalho ao Processo
+            Civil, da Criminologia ao Direito Digital e à Reforma Tributária.
+          </p>
+          <p>
+            Essa visão ampla deu origem à forma de trabalho da DM Advocacia: em vez de um único profissional para
+            todos os temas, cada cliente é atendido por um profissional especializado na área do seu caso.
+          </p>
+        </div>
+        <!-- [TODO — CONFIRMAR COM CLIENTE] Acrescentar aqui um relato pessoal/história do escritório, se desejado. -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Formação -->
+  <section class="ed section-y" aria-labelledby="ed-title">
+    <div class="wrap ed__grid">
+      <div>
+        <h2 id="ed-title" class="h-lg">Formação</h2>
+        <p class="ed__intro">Especialização em diferentes frentes do Direito, ligadas às áreas de atuação do escritório.</p>
+      </div>
+      <ul class="ed__list">
+        {
+          education.map((e) => {
+            const area = e.area ? areaBySlug(e.area) : undefined;
+            return (
+              <li class="ed__item">
+                <span class="ed__t">{e.title}</span>
+                {area && (
+                  <a class="ed__link link-under" href={`/${area.slug}`}>
+                    {area.name}
+                  </a>
+                )}
+              </li>
+            );
+          })
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- Estrutura / equipe -->
+  <section class="st section-y" aria-labelledby="st-title">
+    <div class="wrap st__grid">
+      <figure class="st__figure">
+        <div class="st__frame" data-reveal="clip">
+          <Picture
+            src={photoFront}
+            formats={['avif', 'webp']}
+            widths={[420, 640, 900]}
+            sizes="(min-width: 64rem) 34vw, 92vw"
+            alt={`${siteConfig.lawyer.name} de braços cruzados, em retrato de estúdio`}
+          />
+        </div>
+      </figure>
+      <div>
+        <h2 id="st-title" class="h-lg">A estrutura do escritório</h2>
+        <p class="lead st__text">
+          A DM Advocacia reúne profissionais especializados em diferentes áreas do Direito. Quando você entra em
+          contato, o seu caso é direcionado a quem atua no tema, com experiência, estratégia e compromisso ético.
+        </p>
+        {
+          team.length > 0 && (
+            <ul class="st__team">
+              {team.map((m) => (
+                <li>
+                  <span class="st__team-name">{m.name}</span>
+                  <span class="st__team-meta">
+                    {m.oab}, {m.areas.map((s) => areas.find((a) => a.slug === s)?.short).join(', ')}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          )
+        }
+        <div class="st__cta">
+          <WhatsAppButton message={whatsappMessages.about} label="Agendar atendimento" track="sobre-whatsapp" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <ContactCta />
+</BaseLayout>
+
+<style>
+  /* Hero */
+  .sh {
+    background: var(--color-paper);
+    padding-top: calc(var(--header-h) + clamp(2rem, 5vw, 3.5rem));
+    overflow: clip;
+  }
+  .sh__grid {
+    display: grid;
+    gap: 3rem;
+  }
+  @media (min-width: 64rem) {
+    .sh__grid {
+      grid-template-columns: minmax(0, 6fr) minmax(0, 6fr);
+      align-items: end;
+      gap: clamp(2rem, 5vw, 5rem);
+      padding-right: 0;
+    }
+  }
+  .sh__copy {
+    padding-bottom: clamp(2rem, 6vw, 5rem);
+  }
+  .sh__h1 {
+    margin-top: clamp(2rem, 5vw, 3.5rem);
+  }
+  .sh__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0;
+    color: var(--color-gold-ink);
+  }
+  .sh__rule {
+    width: 2.5rem;
+    height: 1px;
+    background: var(--color-gold);
+  }
+  .sh__title {
+    display: block;
+    margin-top: 1rem;
+    font-size: clamp(3rem, 8vw, 7.5rem);
+    line-height: 0.92;
+    letter-spacing: -0.03em;
+    font-variation-settings: 'opsz' 72;
+  }
+  .sh__role {
+    margin-top: 1.5rem;
+    font-size: 1rem;
+    letter-spacing: 0;
+    color: var(--color-muted);
+  }
+  .sh__lead {
+    margin-top: 1.5rem;
+    max-width: 32rem;
+    color: var(--color-ink);
+  }
+  .sh__oab {
+    margin-top: 1.5rem;
+    font-family: var(--font-serif);
+    font-style: italic;
+    color: var(--color-gold-ink);
+  }
+  .sh__figure {
+    margin: 0 calc(var(--gutter) * -1);
+  }
+  @media (min-width: 64rem) {
+    .sh__figure {
+      margin: 0 calc(var(--gutter) * -1) 0 0;
+    }
+  }
+  .sh__frame {
+    aspect-ratio: 13 / 10;
+    overflow: hidden;
+    background: #2a2b2e;
+  }
+  @media (min-width: 64rem) {
+    .sh__frame {
+      aspect-ratio: 5 / 6;
+    }
+  }
+  .sh__frame :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 52% 20%;
+  }
+
+  /* Trajetória */
+  .tr {
+    background: var(--color-navy-900);
+    color: var(--color-paper);
+  }
+  .tr__grid {
+    display: grid;
+    gap: 2rem;
+  }
+  @media (min-width: 64rem) {
+    .tr__grid {
+      grid-template-columns: minmax(0, 6fr) minmax(0, 6fr);
+      gap: clamp(3rem, 6vw, 7rem);
+      align-items: start;
+    }
+  }
+  .tr__title {
+    font-size: clamp(2.2rem, 4.6vw, 4.25rem);
+    line-height: 1.04;
+    font-weight: 300;
+    max-width: 14ch;
+  }
+  .tr__text {
+    margin-top: 0.4rem;
+    display: grid;
+    gap: 1.25rem;
+    color: var(--color-mist);
+    max-width: 40rem;
+  }
+
+  /* Formação */
+  .ed {
+    background: var(--color-paper);
+  }
+  .ed__grid {
+    display: grid;
+    gap: 2.5rem;
+  }
+  @media (min-width: 64rem) {
+    .ed__grid {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      gap: clamp(3rem, 6vw, 7rem);
+      align-items: start;
+    }
+  }
+  .ed__list {
+    border-top: 1px solid rgb(13 26 43 / 0.14);
+  }
+  .ed__intro {
+    margin-top: 1rem;
+    max-width: 26rem;
+    color: var(--color-muted);
+  }
+  .ed__item {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.25rem 1rem;
+    padding-block: 1.35rem;
+    border-bottom: 1px solid rgb(13 26 43 / 0.14);
+  }
+  @media (min-width: 48rem) {
+    .ed__item {
+      grid-template-columns: 1fr auto;
+      align-items: baseline;
+    }
+  }
+  .ed__t {
+    font-family: var(--font-serif);
+    font-size: clamp(1.25rem, 2vw, 1.6rem);
+    line-height: 1.25;
+  }
+  .ed__link {
+    justify-self: start;
+    font-size: 0.85rem;
+    color: var(--color-muted);
+  }
+  @media (min-width: 48rem) {
+    .ed__link {
+      justify-self: end;
+    }
+  }
+
+  /* Estrutura */
+  .st {
+    background: #fff;
+  }
+  .st__grid {
+    display: grid;
+    gap: 3rem;
+  }
+  @media (min-width: 64rem) {
+    .st__grid {
+      grid-template-columns: minmax(0, 4fr) minmax(0, 6fr);
+      gap: clamp(3rem, 7vw, 8rem);
+      align-items: center;
+    }
+  }
+  .st__figure {
+    margin: 0;
+  }
+  .st__frame {
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    background: #2a2b2e;
+    max-width: 30rem;
+  }
+  .st__frame :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 15%;
+  }
+  .st__text {
+    margin-top: 1.75rem;
+    color: var(--color-muted);
+    max-width: 36rem;
+  }
+  .st__team {
+    margin-top: 2rem;
+    border-top: 1px solid rgb(13 26 43 / 0.14);
+  }
+  .st__team li {
+    display: flex;
+    flex-direction: column;
+    padding-block: 0.9rem;
+    border-bottom: 1px solid rgb(13 26 43 / 0.14);
+  }
+  .st__team-name {
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+  }
+  .st__team-meta {
+    font-size: 0.85rem;
+    color: var(--color-muted);
+  }
+  .st__cta {
+    margin-top: 2.25rem;
+  }
+</style>

@@ -1,0 +1,100 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  href: string;
+  variant?: 'solid' | 'gold' | 'text' | 'text-light';
+  /** Ícone à esquerda — só o WhatsApp tem ícone; os demais botões são texto puro. */
+  icon?: 'whatsapp';
+  external?: boolean;
+  class?: string;
+  /** Identificador para analytics (data-cta). */
+  track?: string;
+}
+const { href, variant = 'solid', icon, external = false, class: className, track } = Astro.props;
+const ext = external || href.startsWith('http');
+---
+
+<a
+  href={href}
+  class:list={['btn', `btn--${variant}`, className]}
+  data-cta={track}
+  {...ext ? { target: '_blank', rel: 'noopener' } : {}}
+>
+  {icon === 'whatsapp' && <Icon name="whatsapp" size={19} class="btn__icon" />}
+  <span><slot /></span>
+  {ext && <span class="sr-only"> (abre em nova aba)</span>}
+</a>
+
+<style>
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    min-height: 3.25rem;
+    font-size: 1rem;
+    font-weight: 550;
+    letter-spacing: 0;
+    line-height: 1.2;
+    cursor: pointer;
+    transition:
+      background-color var(--dur-hover) ease-out,
+      color var(--dur-hover) ease-out,
+      background-size var(--dur-hover) var(--ease-out-quint);
+  }
+  .btn:active {
+    transform: translateY(1px);
+  }
+
+  .btn--solid,
+  .btn--gold {
+    padding-inline: 1.5rem;
+  }
+  .btn--solid {
+    background: var(--color-navy-900);
+    color: #fff;
+  }
+  .btn--solid .btn__icon {
+    color: var(--color-gold-soft);
+  }
+  .btn--solid:hover,
+  .btn--solid:focus-visible {
+    background: var(--color-navy-700);
+  }
+
+  .btn--gold {
+    background: var(--color-gold-soft);
+    color: var(--color-navy-950);
+  }
+  .btn--gold:hover,
+  .btn--gold:focus-visible {
+    background: #fff;
+  }
+
+  /* Links de texto: linha de latão sempre visível, coberta pela cor do texto no hover. */
+  .btn--text,
+  .btn--text-light {
+    min-height: 2.75rem;
+  }
+  .btn--text > span:first-of-type,
+  .btn--text-light > span:first-of-type {
+    padding-bottom: 3px;
+    background-image: linear-gradient(currentColor, currentColor), linear-gradient(var(--color-gold), var(--color-gold));
+    background-size: 0% 1px, 100% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size var(--dur-hover) var(--ease-out-quint);
+  }
+  .btn--text:hover > span:first-of-type,
+  .btn--text:focus-visible > span:first-of-type,
+  .btn--text-light:hover > span:first-of-type,
+  .btn--text-light:focus-visible > span:first-of-type {
+    background-size: 100% 1px, 100% 1px;
+  }
+  .btn--text {
+    color: var(--color-navy-900);
+  }
+  .btn--text-light {
+    color: #fff;
+  }
+</style>

@@ -1,0 +1,120 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/hero/PageHero.astro';
+import WhatsAppButton from '@/components/whatsapp/WhatsAppButton.astro';
+import ContactBlock from '@/components/contact/ContactBlock.astro';
+import ContactForm from '@/components/contact/ContactForm.astro';
+import MapEmbed from '@/components/contact/MapEmbed.astro';
+import { siteConfig, whatsappMessages } from '@/config/site';
+import { breadcrumbSchema, graph, organizationSchema, webPageSchema } from '@/utils/schema';
+
+const title = 'Contato — Advogado em Porto Alegre';
+const description = `Fale com a DM Advocacia pelo WhatsApp ${siteConfig.contact.phoneDisplay}. Escritório no Sarandi, em Porto Alegre. Atendimento presencial ou por vídeo, com hora marcada.`;
+const crumbs = [
+  { name: 'Início', path: '/' },
+  { name: 'Contato', path: '/contato' },
+];
+const schema = graph(
+  webPageSchema({ path: '/contato', title, description, type: 'ContactPage' }),
+  organizationSchema(),
+  breadcrumbSchema(crumbs),
+);
+---
+
+<BaseLayout title={title} description={description} schema={schema}>
+  <PageHero
+    kicker="Contato da DM Advocacia em Porto Alegre"
+    title="Vamos conversar sobre o seu caso."
+    lead="O WhatsApp é o caminho mais rápido. Conte brevemente a situação e agende o atendimento — presencial, no escritório, ou por chamada de vídeo."
+    breadcrumbs={crumbs}
+  >
+    <WhatsAppButton message={whatsappMessages.general} label="Falar no WhatsApp" track="contato-hero-whatsapp" />
+  </PageHero>
+
+  <section class="section-y channels" aria-labelledby="channels-title">
+    <div class="wrap channels__grid">
+      <div>
+        <h2 id="channels-title" class="label">Canais de atendimento</h2>
+        <ContactBlock headingLevel="h3" />
+      </div>
+      <div class="form-wrap">
+        <h2 class="h-lg form-title">Prefere organizar a mensagem antes?</h2>
+        <p class="form-lead">Preencha os campos abaixo e continue a conversa no WhatsApp.</p>
+        <ContactForm />
+      </div>
+    </div>
+  </section>
+
+  <section class="section-y location" aria-labelledby="loc-title">
+    <div class="wrap location__grid">
+      <div>
+        <h2 id="loc-title" class="h-lg">
+          Escritório no {siteConfig.address.neighborhood}, em {siteConfig.address.city}
+        </h2>
+        <p class="loc-text">
+          Atendimento presencial com horário marcado. Para clientes de outras cidades e estados, o atendimento é
+          realizado por chamada de vídeo.
+        </p>
+      </div>
+      <div data-reveal="clip"><MapEmbed /></div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .channels {
+    background: #fff;
+  }
+  .channels__grid {
+    display: grid;
+    gap: 4rem;
+  }
+  @media (min-width: 64rem) {
+    .channels__grid {
+      grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+      gap: clamp(3rem, 6vw, 7rem);
+      align-items: start;
+    }
+  }
+  .label {
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0;
+    color: var(--color-gold-ink);
+    margin-bottom: 1.5rem;
+  }
+  .form-wrap {
+    padding: clamp(1.5rem, 3.5vw, 3rem);
+    background: var(--color-paper);
+    border-top: 2px solid var(--color-gold);
+  }
+  .form-title {
+    font-size: clamp(1.6rem, 2.4vw, 2.1rem);
+  }
+  .form-lead {
+    margin-top: 0.75rem;
+    margin-bottom: 2rem;
+    color: var(--color-muted);
+  }
+
+  .location {
+    background: var(--color-paper);
+  }
+  .location__grid {
+    display: grid;
+    gap: 3rem;
+  }
+  @media (min-width: 64rem) {
+    .location__grid {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      gap: clamp(3rem, 6vw, 7rem);
+      align-items: center;
+    }
+  }
+  .loc-text {
+    margin-top: 1.5rem;
+    color: var(--color-muted);
+    max-width: 30rem;
+  }
+</style>

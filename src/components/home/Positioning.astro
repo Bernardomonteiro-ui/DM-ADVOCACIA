@@ -1,0 +1,93 @@
+---
+const steps = [
+  { n: '01', title: 'Você conta o que aconteceu.', text: 'Uma conversa inicial para entender a situação, com horário marcado.' },
+  { n: '02', title: 'O caso vai para quem atua na área.', text: 'Cada demanda é direcionada ao profissional especializado no tema.' },
+  { n: '03', title: 'Você entende os caminhos possíveis.', text: 'Orientação clara sobre alternativas, prazos e próximos passos.' },
+];
+---
+
+<section class="pos section-y" aria-labelledby="pos-title">
+  <div class="wrap">
+    <h2 id="pos-title" class="pos__statement" data-reveal="lines">
+      <span class="ln"><span>Cada cliente é atendido</span></span>
+      <span class="ln"><span>por um profissional</span></span>
+      <span class="ln"><span>especializado na área</span></span>
+      <span class="ln"><span>do seu caso.</span></span>
+    </h2>
+
+    <ol class="pos__steps">
+      {
+        steps.map((s, i) => (
+          <li class="pos__step">
+            <span class="pos__step-rule" data-reveal="rule" style={`--d:${i * 3}`} aria-hidden="true" />
+            <span class="numeral pos__step-n">{s.n}</span>
+            <h3 class="pos__step-title">{s.title}</h3>
+            <p class="pos__step-text">{s.text}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .pos {
+    background: var(--color-navy-900);
+    color: var(--color-paper);
+    position: relative;
+    overflow: clip;
+  }
+  .pos__statement {
+    font-size: clamp(2.35rem, 6.2vw, 6rem);
+    line-height: 1;
+    letter-spacing: -0.028em;
+    font-weight: 300;
+    font-variation-settings: 'opsz' 72;
+    max-width: 18ch;
+  }
+  /* Recuo editorial das linhas pares em telas largas */
+  @media (min-width: 64rem) {
+    .pos__statement .ln:nth-child(2),
+    .pos__statement .ln:nth-child(4) {
+      padding-left: 1.6em;
+    }
+  }
+
+  .pos__steps {
+    margin-top: clamp(3.5rem, 8vw, 6.5rem);
+    display: grid;
+    gap: 2.5rem;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 48rem) {
+    .pos__steps {
+      grid-template-columns: repeat(3, 1fr);
+      gap: clamp(1.5rem, 3vw, 3rem);
+    }
+  }
+  .pos__step {
+    position: relative;
+    padding-top: 1.5rem;
+  }
+  .pos__step-rule {
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 1px;
+    background: rgb(211 189 148 / 0.55);
+  }
+  .pos__step-n {
+    font-size: 0.95rem;
+    color: var(--color-gold-soft);
+  }
+  .pos__step-title {
+    margin-top: 0.85rem;
+    font-size: clamp(1.35rem, 1.9vw, 1.6rem);
+    line-height: 1.2;
+  }
+  .pos__step-text {
+    margin-top: 0.6rem;
+    color: var(--color-mist);
+    font-size: 0.975rem;
+    max-width: 22rem;
+  }
+</style>

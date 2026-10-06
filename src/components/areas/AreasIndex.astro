@@ -1,0 +1,263 @@
+---
+/**
+ * Índice interativo das áreas.
+ * Desktop: lista à esquerda + painel fixo à direita que acompanha o hover/foco.
+ * Mobile/touch: lista com resumo visível; cada linha leva à página da área.
+ */
+import Icon from '@/components/ui/Icon.astro';
+import { areas } from '@/data/areas';
+
+interface Props {
+  headingLevel?: 'h2' | 'h3';
+}
+const { headingLevel = 'h3' } = Astro.props;
+const H = headingLevel;
+---
+
+<div class="ai" data-areas>
+  <ol class="ai__list">
+    {
+      areas.map((a, i) => (
+        <li>
+          <a href={`/${a.slug}`} class="ai__row" data-area-index={i}>
+            <span class="numeral ai__num">{a.number}</span>
+            <span class="ai__body">
+              <H class="ai__name">{a.name}</H>
+              <span class="ai__summary">{a.summary}</span>
+            </span>
+            <span class="ai__arrow" aria-hidden="true">
+              <Icon name="arrow" size={20} />
+            </span>
+          </a>
+        </li>
+      ))
+    }
+  </ol>
+
+  <aside class="ai__panel" aria-hidden="true">
+    <div class="ai__panel-inner">
+      {
+        areas.map((a, i) => (
+          <div class:list={['ai__card', i === 0 && 'is-active']} data-area-card={i}>
+            <span class="numeral ai__card-num">{a.number}</span>
+            <span class="ai__card-sig">{a.signature}</span>
+            <p class="ai__card-lead">{a.lead}</p>
+            <span class="ai__card-cta">Página de {a.name}</span>
+          </div>
+        ))
+      }
+    </div>
+  </aside>
+</div>
+
+<style>
+  .ai {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  @media (min-width: 64rem) {
+    .ai {
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      gap: clamp(2.5rem, 5vw, 6rem);
+      align-items: start;
+    }
+  }
+
+  .ai__list {
+    border-top: 1px solid rgb(13 26 43 / 0.14);
+  }
+  .ai__row {
+    position: relative;
+    display: grid;
+    grid-template-columns: 2.5rem 1fr auto;
+    align-items: start;
+    gap: 0.75rem;
+    padding-block: 1.35rem;
+    border-bottom: 1px solid rgb(13 26 43 / 0.14);
+  }
+  @media (min-width: 48rem) {
+    .ai__row {
+      grid-template-columns: 4rem 1fr auto;
+      align-items: center;
+      padding-block: 1.6rem;
+    }
+  }
+  /* Linha dourada que percorre a base no hover */
+  .ai__row::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 1px;
+    background: var(--color-gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s var(--ease-out-quint);
+  }
+  .ai__num {
+    padding-top: 0.4rem;
+    font-size: 0.9rem;
+    color: var(--color-gold-ink);
+  }
+  @media (min-width: 48rem) {
+    .ai__num {
+      padding-top: 0;
+    }
+  }
+  .ai__body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    transition: transform var(--dur-hover) var(--ease-out-quint);
+  }
+  .ai__name {
+    font-size: clamp(1.6rem, 3vw, 2.5rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+  .ai__summary {
+    font-size: 0.925rem;
+    color: var(--color-muted);
+  }
+  .ai__arrow {
+    display: inline-grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 999px;
+    box-shadow: inset 0 0 0 1px rgb(13 26 43 / 0.16);
+    transition:
+      background-color var(--dur-hover) ease-out,
+      color var(--dur-hover) ease-out,
+      box-shadow var(--dur-hover) ease-out,
+      transform 0.3s var(--ease-out-quint);
+  }
+
+  @media (hover: hover) and (min-width: 64rem) {
+    /* No desktop, o resumo aparece no hover; o painel lateral complementa. */
+    .ai__summary {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: max-height 0.6s var(--ease-out-quint), opacity 0.5s var(--ease-out-quint);
+    }
+    .ai__list:hover .ai__row:not(:hover) .ai__name {
+      opacity: 0.4;
+    }
+    .ai__name {
+      transition: opacity var(--dur-hover) ease-out;
+    }
+  }
+  .ai__row:hover::after,
+  .ai__row:focus-visible::after,
+  .ai__row.is-active::after {
+    transform: scaleX(1);
+  }
+  .ai__row:hover .ai__body,
+  .ai__row:focus-visible .ai__body {
+    transform: translateX(0.6rem);
+  }
+  .ai__row:hover .ai__summary,
+  .ai__row:focus-visible .ai__summary {
+    max-height: 3rem;
+    opacity: 1;
+  }
+  .ai__row:hover .ai__arrow,
+  .ai__row:focus-visible .ai__arrow {
+    background: var(--color-navy-900);
+    color: var(--color-gold-soft);
+    box-shadow: none;
+    transform: rotate(-45deg);
+  }
+
+  /* Painel lateral (somente desktop) */
+  .ai__panel {
+    display: none;
+  }
+  @media (min-width: 64rem) {
+    .ai__panel {
+      display: block;
+      position: sticky;
+      top: calc(var(--header-h) + 2rem);
+    }
+  }
+  .ai__panel-inner {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    max-height: 34rem;
+    width: 100%;
+    background: var(--color-navy-900);
+    color: var(--color-paper);
+    overflow: hidden;
+  }
+  .ai__card {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    padding: clamp(1.75rem, 3vw, 2.75rem);
+    opacity: 0;
+    transition: opacity 0.35s ease-out;
+  }
+  .ai__card.is-active {
+    opacity: 1;
+  }
+  .ai__card-num {
+    font-size: clamp(7rem, 13vw, 12rem);
+    line-height: 0.8;
+    font-weight: 200;
+    color: transparent;
+    -webkit-text-stroke: 1px rgb(211 189 148 / 0.6);
+    transform: translateY(1.5rem);
+    transition: transform 0.9s var(--ease-out-quint);
+  }
+  .ai__card-sig {
+    margin-top: auto;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(2.5rem, 4vw, 3.5rem);
+    line-height: 1;
+    transform: translateY(1rem);
+    transition: transform 0.9s var(--ease-out-quint) 0.05s;
+  }
+  .ai__card-lead {
+    margin-top: 1.1rem;
+    font-size: 0.975rem;
+    color: var(--color-mist);
+    max-width: 24rem;
+  }
+  .ai__card-cta {
+    margin-top: 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--color-gold-soft);
+    padding-bottom: 3px;
+    border-bottom: 1px solid currentColor;
+    align-self: flex-start;
+  }
+  .ai__card.is-active .ai__card-num,
+  .ai__card.is-active .ai__card-sig {
+    transform: none;
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-areas]').forEach((root) => {
+    const rows = root.querySelectorAll<HTMLElement>('[data-area-index]');
+    const cards = root.querySelectorAll<HTMLElement>('[data-area-card]');
+    const activate = (i: string) => {
+      cards.forEach((c) => c.classList.toggle('is-active', c.dataset.areaCard === i));
+    };
+    rows.forEach((row) => {
+      const i = row.dataset.areaIndex ?? '0';
+      row.addEventListener('pointerenter', () => activate(i));
+      row.addEventListener('focus', () => activate(i));
+    });
+  });
+</script>

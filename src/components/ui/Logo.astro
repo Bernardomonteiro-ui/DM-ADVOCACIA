@@ -1,0 +1,72 @@
+---
+/**
+ * Marca DM Advocacia.
+ *
+ * [TODO — CONFIRMAR COM CLIENTE] O arquivo do logo oficial não foi enviado.
+ * Esta é uma composição tipográfica provisória, fiel ao nome e ao lema do Perfil do Google
+ * ("DM Advocacia — lex et ordo"). Quando o logo oficial chegar (preferencialmente em SVG),
+ * substitua o conteúdo deste componente — todo o site usa apenas ele.
+ */
+interface Props {
+  tone?: 'dark' | 'light';
+  compact?: boolean;
+  class?: string;
+}
+const { tone = 'dark', compact = false, class: className = '' } = Astro.props;
+---
+
+<span class:list={['logo', `logo--${tone}`, compact && 'logo--compact', className]}>
+  <span class="logo__mark" aria-hidden="true">DM</span>
+  <span class="logo__rule" aria-hidden="true"></span>
+  <span class="logo__text">
+    <span class="logo__name">DM Advocacia</span>
+    <span class="logo__motto" aria-hidden="true">Lex et Ordo</span>
+  </span>
+</span>
+
+<style>
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .logo__mark {
+    font-family: var(--font-serif);
+    font-size: 2.05rem;
+    font-weight: 400;
+    letter-spacing: -0.04em;
+    font-variation-settings: 'opsz' 60;
+    transition: font-size 0.5s var(--ease-out-quint);
+  }
+  .logo__rule {
+    width: 1px;
+    align-self: stretch;
+    margin-block: 0.2rem;
+    background: var(--color-gold);
+  }
+  .logo__text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.32rem;
+  }
+  .logo__name {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+  }
+  .logo__motto {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+  }
+  .logo--dark { color: var(--color-navy-900); }
+  .logo--dark .logo__motto { color: var(--color-gold-ink); }
+  .logo--light { color: var(--color-paper); }
+  .logo--light .logo__motto { color: var(--color-gold-soft); }
+  .logo--compact .logo__mark { font-size: 1.7rem; }
+</style>

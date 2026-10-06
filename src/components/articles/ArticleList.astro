@@ -1,0 +1,104 @@
+---
+import Icon from '@/components/ui/Icon.astro';
+import { areaBySlug } from '@/data/areas';
+import { formatDate, type Article } from '@/utils/articles';
+
+interface Props {
+  articles: Article[];
+}
+const { articles } = Astro.props;
+---
+
+<ol class="al">
+  {
+    articles.map((a) => (
+      <li>
+        <a href={`/artigos/${a.id}`} class="al__row">
+          <span class="al__meta">
+            <span class="eyebrow al__cat">{areaBySlug(a.data.area)?.short}</span>
+            <time datetime={a.data.pubDate.toISOString()}>{formatDate(a.data.pubDate)}</time>
+          </span>
+          <span class="al__body">
+            {a.data.example && <span class="al__badge">Conteúdo de exemplo</span>}
+            <h3 class="al__title">{a.data.title}</h3>
+            <span class="al__desc">{a.data.description}</span>
+          </span>
+          <span class="al__arrow" aria-hidden="true">
+            <Icon name="arrow-up-right" size={20} />
+          </span>
+        </a>
+      </li>
+    ))
+  }
+</ol>
+
+<style>
+  .al {
+    border-top: 1px solid rgb(13 26 43 / 0.14);
+  }
+  .al__row {
+    display: grid;
+    gap: 0.75rem 2rem;
+    grid-template-columns: 1fr auto;
+    padding-block: 1.75rem;
+    border-bottom: 1px solid rgb(13 26 43 / 0.14);
+  }
+  @media (min-width: 48rem) {
+    .al__row {
+      grid-template-columns: 12rem 1fr auto;
+      align-items: start;
+    }
+  }
+  .al__meta {
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 1rem;
+    align-items: baseline;
+    font-size: 0.8rem;
+    color: var(--color-muted);
+  }
+  @media (min-width: 48rem) {
+    .al__meta {
+      grid-column: auto;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+  }
+  .al__cat {
+    color: var(--color-gold-ink);
+  }
+  .al__body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .al__badge {
+    align-self: flex-start;
+    padding: 0.2rem 0.55rem;
+    font-size: 0.7rem;
+    letter-spacing: 0;
+    background: #fde9c8;
+    color: #6b4a12;
+  }
+  .al__title {
+    font-size: clamp(1.4rem, 2.2vw, 1.85rem);
+    line-height: 1.2;
+    transition: color 0.3s;
+  }
+  .al__desc {
+    color: var(--color-muted);
+    font-size: 0.975rem;
+  }
+  .al__arrow {
+    transition: transform var(--dur-hover) var(--ease-out-quint), color var(--dur-hover);
+  }
+  .al__row:hover .al__title,
+  .al__row:focus-visible .al__title {
+    color: var(--color-navy-700);
+  }
+  .al__row:hover .al__arrow,
+  .al__row:focus-visible .al__arrow {
+    transform: translate(3px, -3px);
+    color: var(--color-gold-ink);
+  }
+</style>

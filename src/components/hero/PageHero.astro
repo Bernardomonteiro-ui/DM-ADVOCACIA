@@ -1,0 +1,91 @@
+---
+/**
+ * Hero das páginas internas.
+ * O H1 combina uma linha de contexto (`kicker`, com a intenção de busca — ex.: "Advogado trabalhista
+ * em Porto Alegre") e o título de exibição. Leitores de tela e o Google leem os dois como um único título.
+ */
+import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
+
+interface Props {
+  kicker: string;
+  title: string;
+  lead?: string;
+  breadcrumbs: { name: string; path: string }[];
+}
+const { kicker, title, lead, breadcrumbs } = Astro.props;
+---
+
+<section class="ph" aria-labelledby="page-title">
+  <div class="wrap">
+    <Breadcrumbs items={breadcrumbs} />
+    <h1 id="page-title" class="ph__h1">
+      <span class="ph__kicker"><span class="ph__rule" aria-hidden="true"></span>{kicker}</span>
+      <span class="ph__title" data-reveal="lines">
+        <span class="ln"><span>{title}</span></span>
+      </span>
+    </h1>
+    <div class="ph__foot">
+      {lead && <p class="lead ph__lead">{lead}</p>}
+      {Astro.slots.has('default') && <div class="ph__slot"><slot /></div>}
+    </div>
+  </div>
+</section>
+
+<style>
+  .ph {
+    padding-top: calc(var(--header-h) + clamp(1.75rem, 4vw, 3rem));
+    padding-bottom: clamp(3rem, 6vw, 5rem);
+    background: var(--color-paper);
+    border-bottom: 1px solid rgb(15 30 51 / 0.08);
+  }
+  .ph__h1 {
+    margin-top: clamp(2rem, 5vw, 3.25rem);
+  }
+  .ph__kicker {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 1.4;
+    color: var(--color-gold-ink);
+  }
+  .ph__rule {
+    flex: none;
+    width: 2.5rem;
+    height: 1px;
+    background: var(--color-gold);
+  }
+  .ph__title {
+    display: block;
+    margin-top: 1rem;
+    font-size: clamp(2.6rem, 6.4vw, 6rem);
+    line-height: 0.98;
+    letter-spacing: -0.026em;
+    max-width: 16ch;
+    color: var(--color-navy-900);
+  }
+  .ph__foot {
+    margin-top: clamp(1.5rem, 3vw, 2.25rem);
+    display: grid;
+    gap: 1.75rem;
+  }
+  @media (min-width: 64rem) {
+    .ph__foot {
+      grid-template-columns: minmax(0, 34rem) auto;
+      justify-content: space-between;
+      align-items: end;
+    }
+  }
+  .ph__lead {
+    color: var(--color-muted);
+  }
+  .ph__slot {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 2rem;
+    align-items: center;
+  }
+</style>

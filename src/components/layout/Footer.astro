@@ -1,0 +1,140 @@
+---
+import Logo from '@/components/ui/Logo.astro';
+import Icon from '@/components/ui/Icon.astro';
+import { mainNav, siteConfig, whatsappLink, mailLink, telLink, fullAddress } from '@/config/site';
+import { areas } from '@/data/areas';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <a href="/" aria-label={`${siteConfig.name} — página inicial`}><Logo tone="light" /></a>
+        <p>
+          Escritório de advocacia em Porto Alegre. Cada cliente é atendido por um profissional especializado na
+          área do seu caso.
+        </p>
+      </div>
+
+      <nav class="footer__col" aria-label="Rodapé — institucional">
+        <p class="eyebrow footer__label">Escritório</p>
+        <ul>
+          <li><a class="link-draw" href="/">Início</a></li>
+          {mainNav.map((i) => <li><a class="link-draw" href={i.href}>{i.label}</a></li>)}
+        </ul>
+      </nav>
+
+      <nav class="footer__col" aria-label="Rodapé — áreas de atuação">
+        <p class="eyebrow footer__label">Áreas</p>
+        <ul class="footer__areas">
+          {areas.map((a) => <li><a class="link-draw" href={`/${a.slug}`}>{a.name}</a></li>)}
+        </ul>
+      </nav>
+
+      <div class="footer__col">
+        <p class="eyebrow footer__label">Contato</p>
+        <ul>
+          <li>
+            <a class="link-draw" href={whatsappLink()} target="_blank" rel="noopener" data-cta="footer-whatsapp">
+              WhatsApp {siteConfig.contact.phoneDisplay}
+            </a>
+          </li>
+          <li><a class="link-draw" href={telLink()}>Telefone {siteConfig.contact.phoneDisplay}</a></li>
+          <li><a class="link-draw footer__email" href={mailLink()}>{siteConfig.contact.email}</a></li>
+          <li>
+            <address>
+              <a class="link-draw" href={siteConfig.maps.link} target="_blank" rel="noopener">{fullAddress()}</a>
+            </address>
+          </li>
+          <li class="footer__muted">{siteConfig.hours.short}</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <p>
+        © {year} {siteConfig.name}. {siteConfig.lawyer.name}, {siteConfig.lawyer.oab}.
+      </p>
+      <a class="link-draw" href="/politica-de-privacidade">Política de privacidade</a>
+      <p class="footer__disclaimer">Conteúdo de caráter informativo. Não constitui consulta jurídica.</p>
+      <a href={siteConfig.social.instagram} class="footer__ig" target="_blank" rel="noopener">
+        <Icon name="instagram" size={18} />
+        <span>{siteConfig.social.instagramHandle}</span>
+        <span class="sr-only"> no Instagram (abre em nova aba)</span>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--color-navy-950);
+    color: var(--color-mist);
+    font-size: 0.925rem;
+    padding-top: clamp(4rem, 8vw, 6rem);
+  }
+  .footer a {
+    color: var(--color-paper);
+  }
+  .footer__top {
+    display: grid;
+    gap: 3rem 2rem;
+    grid-template-columns: 1fr;
+    padding-bottom: clamp(3rem, 6vw, 4.5rem);
+  }
+  @media (min-width: 40rem) {
+    .footer__top {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (min-width: 64rem) {
+    .footer__top {
+      grid-template-columns: 1.4fr 0.7fr 1fr 1.2fr;
+    }
+  }
+  .footer__brand p {
+    margin-top: 1.5rem;
+    max-width: 22rem;
+    line-height: 1.6;
+  }
+  .footer__label {
+    color: var(--color-gold-soft);
+    margin-bottom: 1.1rem;
+  }
+  .footer__col li + li {
+    margin-top: 0.55rem;
+  }
+  .footer__email {
+    overflow-wrap: anywhere;
+  }
+  address {
+    font-style: normal;
+  }
+  .footer__muted {
+    color: var(--color-mist);
+  }
+  .footer__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem 2rem;
+    padding-block: 1.75rem;
+    border-top: 1px solid rgb(245 242 236 / 0.1);
+    font-size: 0.8rem;
+  }
+  .footer__disclaimer {
+    color: #8a96a8;
+  }
+  .footer__ig {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.3s;
+  }
+  .footer__ig:hover {
+    color: var(--color-gold-soft);
+  }
+</style>

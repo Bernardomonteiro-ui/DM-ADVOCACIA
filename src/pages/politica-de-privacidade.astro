@@ -1,0 +1,109 @@
+---
+/**
+ * Política de privacidade — descreve o funcionamento REAL do site:
+ * sem cookies próprios, sem ferramentas de análise, formulário que não armazena dados,
+ * mapa do Google carregado somente após clique.
+ * Se forem adicionados analytics, pixel ou formulário com back-end, ATUALIZAR este texto.
+ * [TODO — CONFIRMAR COM CLIENTE] provedor de hospedagem e revisão jurídica final.
+ */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/hero/PageHero.astro';
+import { siteConfig, mailLink, fullAddress } from '@/config/site';
+import { breadcrumbSchema, graph, webPageSchema } from '@/utils/schema';
+
+const title = 'Política de Privacidade';
+const description =
+  'Como o site da DM Advocacia trata dados pessoais: sem cookies de rastreamento, formulário sem armazenamento e direitos do titular conforme a LGPD.';
+const updated = '6 de outubro de 2026';
+const crumbs = [
+  { name: 'Início', path: '/' },
+  { name: 'Política de privacidade', path: '/politica-de-privacidade' },
+];
+const schema = graph(webPageSchema({ path: '/politica-de-privacidade', title, description }), breadcrumbSchema(crumbs));
+---
+
+<BaseLayout title={title} description={description} schema={schema}>
+  <PageHero
+    kicker="Privacidade e proteção de dados"
+    title="Política de privacidade"
+    lead={`Última atualização: ${updated}.`}
+    breadcrumbs={crumbs}
+  />
+
+  <section class="section-y" style="background:#fff">
+    <div class="wrap">
+      <div class="prose-dm policy">
+        <p>
+          Esta política explica como o site da {siteConfig.name} trata informações de quem o visita, em conformidade
+          com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018).
+        </p>
+
+        <h2>Quem é o responsável</h2>
+        <p>
+          {siteConfig.name}, {fullAddress()}. Contato para assuntos de privacidade:
+          <a href={mailLink()}>{siteConfig.contact.email}</a>.
+        </p>
+
+        <h2>O que este site coleta</h2>
+        <ul>
+          <li>
+            <strong>Nenhum cookie de rastreamento ou ferramenta de análise de audiência</strong> é utilizado neste
+            site.
+          </li>
+          <li>
+            O <strong>formulário de contato</strong> não envia nem armazena informações: ele apenas monta uma mensagem
+            e abre o WhatsApp no seu dispositivo. O envio só acontece se você confirmar a mensagem no aplicativo.
+          </li>
+          <li>
+            Como qualquer site na internet, o serviço de hospedagem pode registrar dados técnicos de acesso (como
+            endereço IP e data e hora da requisição) para fins de segurança e funcionamento.
+          </li>
+        </ul>
+
+        <h2>Serviços de terceiros</h2>
+        <ul>
+          <li>
+            <strong>WhatsApp</strong> (Meta): as conversas iniciadas pelos botões do site seguem a política de
+            privacidade do WhatsApp.
+          </li>
+          <li>
+            <strong>Google Maps</strong>: o mapa só é carregado quando você clica em “Carregar mapa”. A partir daí, o
+            Google pode coletar dados conforme a política dele.
+          </li>
+          <li>
+            <strong>Instagram</strong>: os links levam ao perfil oficial, sujeito à política da plataforma.
+          </li>
+        </ul>
+
+        <h2>Informações compartilhadas no atendimento</h2>
+        <p>
+          Os dados e documentos que você compartilha com o escritório durante o atendimento são usados exclusivamente
+          para a análise e a condução do seu caso, e estão protegidos pelo sigilo profissional previsto no Estatuto da
+          Advocacia.
+        </p>
+
+        <h2>Seus direitos</h2>
+        <p>
+          Você pode solicitar confirmação de tratamento, acesso, correção, anonimização, portabilidade ou eliminação
+          de dados pessoais, entre outros direitos previstos no art. 18 da LGPD, pelo e-mail
+          <a href={mailLink()}>{siteConfig.contact.email}</a>.
+        </p>
+
+        <h2>Alterações</h2>
+        <p>
+          Esta política pode ser atualizada se o funcionamento do site mudar. A data da última atualização aparece no
+          topo desta página.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .policy {
+    max-width: 44rem;
+  }
+  .policy h2 {
+    font-size: clamp(1.45rem, 2.2vw, 1.8rem);
+  }
+</style>

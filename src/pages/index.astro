@@ -1,0 +1,107 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import HomeHero from '@/components/hero/HomeHero.astro';
+import Positioning from '@/components/home/Positioning.astro';
+import AreasIndex from '@/components/areas/AreasIndex.astro';
+import AboutTeaser from '@/components/about/AboutTeaser.astro';
+import Atendimento from '@/components/home/Atendimento.astro';
+import ArticlesTeaser from '@/components/articles/ArticlesTeaser.astro';
+import ContactCta from '@/components/contact/ContactCta.astro';
+import ContactBlock from '@/components/contact/ContactBlock.astro';
+import MapEmbed from '@/components/contact/MapEmbed.astro';
+import Button from '@/components/ui/Button.astro';
+import { siteConfig } from '@/config/site';
+import { graph, organizationSchema, personSchema, websiteSchema, webPageSchema } from '@/utils/schema';
+
+const schema = graph(
+  organizationSchema(),
+  personSchema(),
+  websiteSchema(),
+  webPageSchema({ path: '/', title: siteConfig.seo.defaultTitle, description: siteConfig.seo.defaultDescription }),
+);
+---
+
+<BaseLayout schema={schema}>
+  <!-- 01 — Quem somos? -->
+  <HomeHero />
+
+  <!-- 02 — Como trabalhamos? -->
+  <Positioning />
+
+  <!-- 03 — Podem resolver meu problema? -->
+  <section class="areas section-y" aria-labelledby="areas-title">
+    <div class="wrap">
+      <div class="areas__head">
+        <h2 id="areas-title" class="h-xl">Áreas de atuação</h2>
+        <div class="areas__aside">
+          <p>Seu caso é conduzido por quem atua na área. Escolha o tema mais próximo da sua situação.</p>
+          <Button href="/areas-de-atuacao" variant="text">Visão geral das áreas</Button>
+        </div>
+      </div>
+      <AreasIndex />
+    </div>
+  </section>
+
+  <!-- 04 — Quem está por trás? -->
+  <AboutTeaser />
+
+  <!-- 05 — Como posso ser atendido? -->
+  <Atendimento />
+
+  <!-- 06 — Conteúdo -->
+  <ArticlesTeaser />
+
+  <!-- 07 — Como entro em contato? -->
+  <ContactCta />
+
+  <!-- 08 — Onde estamos? -->
+  <section class="contact section-y" aria-labelledby="contact-title">
+    <div class="wrap contact__grid">
+      <div>
+        <h2 id="contact-title" class="h-lg">Escritório em Porto Alegre</h2>
+        <div class="contact__block"><ContactBlock /></div>
+      </div>
+      <div data-reveal="clip"><MapEmbed /></div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .areas {
+    background: #fff;
+  }
+  .areas__head {
+    display: grid;
+    gap: 2rem;
+    margin-bottom: clamp(3rem, 6vw, 5rem);
+  }
+  @media (min-width: 64rem) {
+    .areas__head {
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      gap: clamp(2.5rem, 5vw, 6rem);
+      align-items: end;
+    }
+  }
+  .areas__aside p {
+    color: var(--color-muted);
+    max-width: 26rem;
+  }
+
+  .contact {
+    background: var(--color-paper);
+  }
+  .contact__grid {
+    display: grid;
+    gap: 3rem;
+  }
+  @media (min-width: 64rem) {
+    .contact__grid {
+      grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+      gap: clamp(3rem, 6vw, 7rem);
+      align-items: end;
+    }
+  }
+  .contact__block {
+    margin-top: clamp(2rem, 4vw, 3rem);
+  }
+</style>

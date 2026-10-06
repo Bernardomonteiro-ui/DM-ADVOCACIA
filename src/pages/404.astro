@@ -1,0 +1,53 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Button from '@/components/ui/Button.astro';
+---
+
+<BaseLayout title="Página não encontrada" noindex>
+  <section class="nf">
+    <div class="wrap">
+      <p class="eyebrow nf__eyebrow">Erro 404</p>
+      <h1 class="nf__title">Esta página não foi encontrada.</h1>
+      <p class="nf__text">O endereço pode ter mudado. Os caminhos abaixo levam às principais seções do site.</p>
+      <div class="nf__links">
+        <Button href="/">Página inicial</Button>
+        <Button href="/areas-de-atuacao" variant="text">Áreas de atuação</Button>
+        <Button href="/contato" variant="text">Contato</Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .nf {
+    min-height: 80svh;
+    display: flex;
+    align-items: center;
+    padding-top: calc(var(--header-h) + 3rem);
+    padding-bottom: 5rem;
+  }
+  .nf__eyebrow {
+    color: var(--color-gold-ink);
+  }
+  .nf__title {
+    margin-top: 1.25rem;
+    font-size: clamp(2.6rem, 6vw, 5.5rem);
+    max-width: 14ch;
+  }
+  .nf__title em {
+    font-weight: 300;
+    color: var(--color-navy-700);
+  }
+  .nf__text {
+    margin-top: 1.5rem;
+    color: var(--color-muted);
+    max-width: 32rem;
+  }
+  .nf__links {
+    margin-top: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem 2rem;
+  }
+</style>

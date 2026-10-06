@@ -1,0 +1,74 @@
+---
+/** Faixa de chamada para o WhatsApp. Mensagem contextual configurável por página. */
+import WhatsAppButton from '@/components/whatsapp/WhatsAppButton.astro';
+import { siteConfig, whatsappMessages } from '@/config/site';
+
+interface Props {
+  message?: string;
+  title?: string;
+  text?: string;
+}
+const {
+  message = whatsappMessages.general,
+  title = 'Seu problema, tratado por quem entende do assunto.',
+  text = 'Conte brevemente a sua situação pelo WhatsApp e agende o atendimento, presencial ou por vídeo.',
+} = Astro.props;
+---
+
+<section class="cta" aria-labelledby="cta-title">
+  <div class="wrap cta__inner">
+    <h2 id="cta-title" class="cta__title">{title}</h2>
+    <div class="cta__foot">
+      <p class="cta__text">{text}</p>
+      <div class="cta__action">
+        <WhatsAppButton message={message} variant="gold" label="Falar no WhatsApp" track="cta-whatsapp" />
+        <p class="cta__micro">
+          {siteConfig.contact.phoneDisplay}<br />{siteConfig.hours.short}
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta {
+    background: var(--color-navy-950);
+    color: var(--color-paper);
+    padding-block: clamp(4.5rem, 10vw, 8rem);
+  }
+  .cta__title {
+    font-size: clamp(2.3rem, 5.6vw, 5.25rem);
+    line-height: 1.02;
+    letter-spacing: -0.028em;
+    font-weight: 300;
+    max-width: 17ch;
+  }
+  .cta__foot {
+    margin-top: clamp(2.25rem, 5vw, 3.5rem);
+    display: grid;
+    gap: 2rem;
+    max-width: 62rem;
+  }
+  @media (min-width: 48rem) {
+    .cta__foot {
+      grid-template-columns: 1fr auto;
+      align-items: end;
+      gap: 4rem;
+    }
+  }
+  .cta__text {
+    color: var(--color-mist);
+    max-width: 30rem;
+  }
+  .cta__action {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.85rem;
+  }
+  .cta__micro {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--color-mist);
+  }
+</style>

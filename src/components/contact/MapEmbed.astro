@@ -1,0 +1,128 @@
+---
+/**
+ * Mapa com "fachada": o iframe do Google Maps só carrega quando o visitante pede.
+ * Evita ~500 KB de scripts de terceiros no carregamento (Core Web Vitals) e cookies sem consentimento.
+ */
+import { siteConfig, fullAddress } from '@/config/site';
+---
+
+<div class="map" data-map>
+  <div class="map__facade">
+    <svg class="map__grid" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <g stroke="currentColor" stroke-width="0.6" fill="none">
+        <path d="M-10 60 L410 20 M-10 140 L410 120 M-10 230 L410 250 M70 -10 L40 310 M180 -10 L200 310 M300 -10 L330 310" />
+        <path d="M-10 190 C 120 160, 260 210, 410 170" stroke-width="1.6" />
+      </g>
+    </svg>
+    <span class="map__pin" aria-hidden="true"></span>
+    <div class="map__info">
+      <p class="eyebrow">{siteConfig.address.neighborhood}, {siteConfig.address.city}</p>
+      <p class="map__addr">{fullAddress()}</p>
+      <div class="map__actions">
+        <button type="button" class="map__btn" data-map-load>Carregar mapa</button>
+        <a class="map__link link-under" href={siteConfig.maps.link} target="_blank" rel="noopener">
+          Abrir no Google Maps<span class="sr-only"> (abre em nova aba)</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .map {
+    position: relative;
+    width: 100%;
+    min-width: 0;
+    aspect-ratio: 4 / 3;
+    background: var(--color-navy-900);
+    color: var(--color-paper);
+    overflow: hidden;
+  }
+  .map :global(iframe) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    filter: grayscale(0.4) contrast(1.05);
+  }
+  .map__facade {
+    position: absolute;
+    inset: 0;
+  }
+  .map__grid {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    color: rgb(211 189 148 / 0.22);
+  }
+  .map__pin {
+    position: absolute;
+    left: 52%;
+    top: 40%;
+    width: 0.9rem;
+    height: 0.9rem;
+    border-radius: 999px;
+    background: var(--color-gold-soft);
+    box-shadow: 0 0 0 0.6rem rgb(211 189 148 / 0.15), 0 0 0 1.4rem rgb(211 189 148 / 0.06);
+  }
+  .map__info {
+    position: absolute;
+    inset: auto 0 0 0;
+    padding: clamp(1.25rem, 3vw, 2rem);
+    background: linear-gradient(180deg, transparent, rgb(8 17 29 / 0.92) 35%);
+  }
+  .map__info .eyebrow {
+    color: var(--color-gold-soft);
+  }
+  .map__addr {
+    margin-top: 0.5rem;
+    font-family: var(--font-serif);
+    font-size: 1.2rem;
+    line-height: 1.35;
+    max-width: 28rem;
+  }
+  .map__actions {
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1.5rem;
+  }
+  .map__btn {
+    height: 2.75rem;
+    padding-inline: 1.1rem;
+    font-size: 0.95rem;
+    font-weight: 550;
+    color: var(--color-paper);
+    box-shadow: inset 0 0 0 1px rgb(245 242 236 / 0.35);
+    cursor: pointer;
+    transition: background-color var(--dur-hover), color var(--dur-hover);
+  }
+  .map__btn:hover {
+    background: var(--color-paper);
+    color: var(--color-navy-950);
+  }
+  .map__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.875rem;
+  }
+</style>
+
+<script>
+  import { siteConfig } from '@/config/site';
+  document.querySelectorAll<HTMLElement>('[data-map]').forEach((root) => {
+    root.querySelector('[data-map-load]')?.addEventListener('click', () => {
+      const iframe = document.createElement('iframe');
+      iframe.src = siteConfig.maps.embed;
+      iframe.title = `Mapa — localização da ${siteConfig.name}`;
+      iframe.loading = 'lazy';
+      iframe.referrerPolicy = 'no-referrer-when-downgrade';
+      root.replaceChildren(iframe);
+      iframe.focus();
+    });
+  });
+</script>

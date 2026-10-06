@@ -1,0 +1,284 @@
+@import 'tailwindcss';
+/* Somente o eixo de peso (wght): ~150 KB no total, contra ~330 KB dos eixos opsz/wdth. */
+@import '@fontsource-variable/newsreader/wght.css';
+@import '@fontsource-variable/newsreader/wght-italic.css';
+@import '@fontsource-variable/instrument-sans/wght.css';
+
+/* ------------------------------------------------------------------ Tokens */
+@theme {
+  /* Navy institucional — texto, seções escuras, botões */
+  --color-navy-950: #0a1424;
+  --color-navy-900: #0f1e33;
+  --color-navy-800: #172a44;
+  --color-navy-700: #22385a;
+  --color-navy-500: #4a5d78;
+  /* Neutros frios (pedra), em vez do creme amarelado */
+  --color-paper: #efefec;
+  --color-paper-2: #e3e4e1;
+  --color-stone: #cfd1cd;
+  --color-ink: #0f1e33;
+  --color-muted: #535c6a;
+  --color-mist: #aab3c0;
+  /* Latão: linha, indicador, hover — nunca protagonista */
+  --color-gold: #a8834e;
+  --color-gold-soft: #cdb68c;
+  --color-gold-ink: #7c5e33; /* latão com contraste AA sobre papel e branco */
+
+  --font-serif: 'Newsreader Variable', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Instrument Sans Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out-cubic: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+:root {
+  /* Resposta a interação: rápida. Revelações: lentas e raras. */
+  --dur-hover: 200ms;
+}
+
+:root {
+  --gutter: clamp(1rem, 4.2vw, 3.5rem);
+  --header-h: 5.25rem;
+  --section-y: clamp(5rem, 11vw, 9.5rem);
+  color-scheme: light;
+}
+
+/* -------------------------------------------------------------------- Base */
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    scroll-padding-top: 5rem;
+  }
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    overflow-x: clip;
+  }
+  ::selection {
+    background: var(--color-navy-900);
+    color: var(--color-paper);
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  em {
+    font-style: italic;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* ------------------------------------------------------------- Utilitários */
+@utility wrap {
+  width: 100%;
+  max-width: 88rem;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+@utility section-y {
+  padding-block: var(--section-y);
+}
+
+@utility eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.005em;
+  line-height: 1.4;
+}
+
+@utility display {
+  font-family: var(--font-serif);
+  font-size: clamp(2.9rem, 7.4vw, 7rem);
+  line-height: 0.96;
+  letter-spacing: -0.028em;
+}
+
+@utility h-xl {
+  font-family: var(--font-serif);
+  font-size: clamp(2.25rem, 4.8vw, 4.5rem);
+  line-height: 1.02;
+  letter-spacing: -0.022em;
+}
+
+@utility h-lg {
+  font-family: var(--font-serif);
+  font-size: clamp(1.9rem, 3.4vw, 3.1rem);
+  line-height: 1.08;
+  letter-spacing: -0.018em;
+}
+
+@utility lead {
+  font-size: clamp(1.075rem, 1.35vw, 1.25rem);
+  line-height: 1.6;
+}
+
+@utility numeral {
+  font-family: var(--font-serif);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+@utility hairline {
+  height: 1px;
+  background: currentColor;
+  opacity: 0.18;
+}
+
+/* Link com sublinhado que desenha da esquerda para a direita */
+@utility link-draw {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size var(--dur-hover) var(--ease-out-quint);
+  &:hover,
+  &:focus-visible {
+    background-size: 100% 1px;
+  }
+}
+
+/* Link de texto isolado: linha de latão sempre visível; no hover, a tinta cobre a linha. */
+@utility link-under {
+  background-image: linear-gradient(currentColor, currentColor), linear-gradient(var(--color-gold), var(--color-gold));
+  background-size: 0% 1px, 100% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  padding-bottom: 3px;
+  transition: background-size var(--dur-hover) var(--ease-out-quint);
+  &:hover,
+  &:focus-visible {
+    background-size: 100% 1px, 100% 1px;
+  }
+}
+
+/* -------------------------------------------------------------- Prosa */
+@utility prose-dm {
+  font-size: 1.125rem;
+  line-height: 1.75;
+  & > * + * { margin-top: 1.25em; }
+  & h2 { font-size: clamp(1.6rem, 2.6vw, 2.1rem); margin-top: 2.2em; }
+  & h3 { font-size: 1.4rem; margin-top: 1.8em; }
+  & ul { list-style: none; padding: 0; }
+  & ul li { position: relative; padding-left: 1.5rem; }
+  & ul li + li { margin-top: 0.5rem; }
+  & ul li::before {
+    content: ''; position: absolute; left: 0; top: 0.85em;
+    width: 0.65rem; height: 1px; background: var(--color-gold);
+  }
+  & a { color: var(--color-navy-700); text-decoration: underline; text-decoration-color: var(--color-gold); text-underline-offset: 3px; }
+  & blockquote {
+    border-left: 2px solid var(--color-gold);
+    padding: 0.25rem 0 0.25rem 1.25rem;
+    color: var(--color-muted);
+  }
+  & strong { font-weight: 600; }
+}
+
+/* ============================================================== Motion
+   O estado "escondido" só existe quando há JS (classe .js no <html>),
+   então o conteúdo continua visível sem JavaScript e para crawlers. */
+
+.js [data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 0.75rem, 0);
+  transition:
+    opacity 0.7s var(--ease-out-quint),
+    transform 0.8s var(--ease-out-quint);
+  transition-delay: calc(var(--d, 0) * 90ms);
+}
+.js [data-reveal].is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* Títulos revelados linha a linha (máscara) */
+.js [data-reveal='lines'] {
+  opacity: 1;
+  transform: none;
+}
+[data-reveal='lines'] .ln {
+  display: block;
+  overflow: clip;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+.js [data-reveal='lines'] .ln > span {
+  display: inline-block;
+  transform: translate3d(0, 108%, 0);
+  transition: transform 0.95s var(--ease-out-quint);
+  transition-delay: calc((var(--d, 0) + var(--i, 0)) * 80ms);
+}
+.js [data-reveal='lines'].is-in .ln > span {
+  transform: none;
+}
+
+/* Imagens com clip-path */
+.js [data-reveal='clip'] {
+  opacity: 1;
+  transform: none;
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path 1.1s var(--ease-in-out-cubic);
+  transition-delay: calc(var(--d, 0) * 90ms);
+}
+.js [data-reveal='clip'].is-in {
+  clip-path: inset(0 0 0 0);
+}
+.js [data-reveal='clip'] img {
+  transform: scale(1.06);
+  transition: transform 1.6s var(--ease-out-quint);
+  transition-delay: calc(var(--d, 0) * 90ms);
+}
+.js [data-reveal='clip'].is-in img {
+  transform: scale(1);
+}
+
+/* Linhas que se desenham */
+.js [data-reveal='rule'] {
+  opacity: 1;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 1.3s var(--ease-out-quint);
+  transition-delay: calc(var(--d, 0) * 90ms);
+}
+.js [data-reveal='rule'].is-in {
+  transform: scaleX(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+    scroll-behavior: auto !important;
+  }
+  .js [data-reveal],
+  .js [data-reveal] img,
+  .js [data-reveal='lines'] .ln > span {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+  }
+}

@@ -1,0 +1,125 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { render } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
+import ContactCta from '@/components/contact/ContactCta.astro';
+import RelatedAreas from '@/components/areas/RelatedAreas.astro';
+import { areaBySlug } from '@/data/areas';
+import { formatDate, getArticles, readingTime, type Article } from '@/utils/articles';
+import { articleSchema, breadcrumbSchema, graph } from '@/utils/schema';
+
+export const getStaticPaths = (async () => {
+  const articles = await getArticles();
+  return articles.map((article) => ({ params: { slug: article.id }, props: { article } }));
+}) satisfies GetStaticPaths;
+
+interface Props {
+  article: Article;
+}
+const { article } = Astro.props;
+const { Content } = await render(article);
+const area = areaBySlug(article.data.area);
+const path = `/artigos/${article.id}`;
+const crumbs = [
+  { name: 'Início', path: '/' },
+  { name: 'Artigos', path: '/artigos' },
+  ...(area ? [{ name: area.short, path: `/artigos/categoria/${area.slug}` }] : []),
+  { name: article.data.title, path },
+];
+const schema = graph(
+  articleSchema({
+    path,
+    title: article.data.title,
+    description: article.data.description,
+    pubDate: article.data.pubDate,
+    updatedDate: article.data.updatedDate,
+  }),
+  breadcrumbSchema(crumbs),
+);
+---
+
+<BaseLayout
+  title={article.data.title}
+  description={article.data.description}
+  type="article"
+  schema={schema}
+  noindex={article.data.example || article.data.draft}
+>
+  <article class="art">
+    <header class="art__head wrap">
+      <div><Breadcrumbs items={crumbs} /></div>
+      {article.data.example && <p class="art__badge">Conteúdo de exemplo, não publicado</p>}
+      <p class="eyebrow art__eyebrow">{area?.name}</p>
+      <h1 class="art__title">{article.data.title}</h1>
+      <p class="art__meta">
+        Por {article.data.author}, em{' '}
+        <time datetime={article.data.pubDate.toISOString()}>{formatDate(article.data.pubDate)}</time>.{' '}
+        Leitura de {readingTime(article.body ?? '')} min.
+      </p>
+    </header>
+    <div class="wrap">
+      <div class="art__body prose-dm">
+        <Content />
+      </div>
+    </div>
+  </article>
+
+  {area && <ContactCta message={area.whatsappMessage} title={`Converse com quem atua em ${area.name}.`} />}
+
+  {
+    area && (
+      <section class="section-y" style="background:#fff" aria-labelledby="rel-title">
+        <div class="wrap">
+          <h2 id="rel-title" class="eyebrow" style="color:var(--color-gold-ink);margin-bottom:2rem">
+            Conheça a área
+          </h2>
+          <RelatedAreas slugs={[area.slug, ...area.related.slice(0, 2)]} />
+        </div>
+      </section>
+    )
+  }
+</BaseLayout>
+
+<style>
+  .art {
+    background: var(--color-paper);
+    padding-top: calc(var(--header-h) + clamp(2rem, 5vw, 3.5rem));
+    padding-bottom: var(--section-y);
+  }
+  .art__head {
+    max-width: 56rem;
+  }
+  .art__badge {
+    display: inline-block;
+    margin-top: 1.5rem;
+    padding: 0.25rem 0.6rem;
+    font-size: 0.75rem;
+    letter-spacing: 0;
+    background: #fde9c8;
+    color: #6b4a12;
+  }
+  .art__eyebrow {
+    margin-top: 2rem;
+    color: var(--color-gold-ink);
+  }
+  .art__title {
+    margin-top: 1rem;
+    font-size: clamp(2.2rem, 5vw, 4rem);
+    line-height: 1.05;
+  }
+  .art__meta {
+    margin-top: 1.25rem;
+    font-size: 0.875rem;
+    color: var(--color-muted);
+  }
+  .art__body {
+    max-width: 42rem;
+    margin: clamp(2.5rem, 5vw, 4rem) auto 0;
+  }
+  @media (min-width: 64rem) {
+    .art__body {
+      margin-left: calc((100% - 56rem) / 2 + 6rem);
+    }
+  }
+</style>

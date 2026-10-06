@@ -1,0 +1,83 @@
+---
+/**
+ * Bloco de conteúdo na Home.
+ * Com artigos publicados: lista os mais recentes.
+ * Sem artigos: faixa discreta, apontando para o Instagram — sem conteúdo falso.
+ */
+import ArticleList from './ArticleList.astro';
+import Button from '@/components/ui/Button.astro';
+import { siteConfig } from '@/config/site';
+import { getArticles } from '@/utils/articles';
+
+const latest = (await getArticles()).slice(0, 3);
+---
+
+<section class="at section-y" aria-labelledby="at-title">
+  <div class="wrap at__grid">
+    <div>
+      <h2 id="at-title" class="h-lg">Artigos</h2>
+      <p class="at__intro">Informação jurídica clara, para entender sua situação antes de qualquer decisão.</p>
+      {
+        latest.length > 0 && (
+          <div class="at__cta">
+            <Button href="/artigos" variant="text">Todos os artigos</Button>
+          </div>
+        )
+      }
+    </div>
+
+    {
+      latest.length > 0 ? (
+        <ArticleList articles={latest} />
+      ) : (
+        <div class="at__empty">
+          <p>
+            Os primeiros artigos, sobre as dúvidas mais frequentes em cada área de atuação, estão em preparação.
+          </p>
+          <Button href={siteConfig.social.instagram} variant="text" external>
+            Acompanhar a DM Advocacia no Instagram
+          </Button>
+        </div>
+      )
+    }
+  </div>
+</section>
+
+<style>
+  .at {
+    background: var(--color-paper-2);
+  }
+  .at__grid {
+    display: grid;
+    gap: 2rem;
+  }
+  @media (min-width: 64rem) {
+    .at__grid {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      gap: clamp(3rem, 6vw, 7rem);
+      align-items: start;
+    }
+  }
+  .at__intro {
+    margin-top: 1rem;
+    max-width: 26rem;
+    color: var(--color-muted);
+  }
+  .at__cta {
+    margin-top: 1rem;
+  }
+  .at__empty {
+    border-top: 1px solid rgb(15 30 51 / 0.14);
+    padding-top: 1.5rem;
+  }
+  .at__empty p {
+    max-width: 34rem;
+    color: var(--color-ink);
+    font-family: var(--font-serif);
+    font-size: clamp(1.25rem, 1.8vw, 1.5rem);
+    line-height: 1.35;
+  }
+  .at__empty :global(.btn) {
+    margin-top: 0.75rem;
+  }
+</style>

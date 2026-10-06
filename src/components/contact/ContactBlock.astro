@@ -1,0 +1,143 @@
+---
+/** Informações de contato. Todos os dados vêm de siteConfig. */
+import { siteConfig, whatsappLink, telLink, mailLink } from '@/config/site';
+
+interface Props {
+  headingLevel?: 'h2' | 'h3';
+}
+const { headingLevel = 'h3' } = Astro.props;
+const H = headingLevel;
+const a = siteConfig.address;
+---
+
+<dl class="cb">
+  <div class="cb__item">
+    <dt class="eyebrow">WhatsApp e telefone</dt>
+    <dd>
+      <a class="cb__big link-draw" href={whatsappLink()} target="_blank" rel="noopener" data-cta="contact-whatsapp">
+        {siteConfig.contact.phoneDisplay}
+      </a>
+      <span class="cb__links">
+        <a class="link-under" href={whatsappLink()} target="_blank" rel="noopener">Abrir WhatsApp</a>
+        <a class="link-under" href={telLink()}>Ligar</a>
+      </span>
+    </dd>
+  </div>
+
+  <div class="cb__item">
+    <dt class="eyebrow">E-mail</dt>
+    <dd><a class="cb__mail link-draw" href={mailLink()}>{siteConfig.contact.email}</a></dd>
+  </div>
+
+  <div class="cb__item">
+    <dt class="eyebrow">Escritório</dt>
+    <dd>
+      <address>
+        <H class="cb__addr">{a.street}, {a.complement.toLowerCase()}</H>
+        <span>{a.neighborhood}, {a.city}, {a.state}<br />CEP {a.postalCode}</span>
+      </address>
+      <a class="cb__map link-under" href={siteConfig.maps.link} target="_blank" rel="noopener">
+        Como chegar<span class="sr-only"> (abre o Google Maps em nova aba)</span>
+      </a>
+    </dd>
+  </div>
+
+  <div class="cb__item">
+    <dt class="eyebrow">Atendimento</dt>
+    <dd>
+      <span class="cb__strong">{siteConfig.hours.short}</span>
+      <span>{siteConfig.hours.long}</span>
+      <span>Presencial ou por vídeo, em todo o Brasil.</span>
+    </dd>
+  </div>
+
+  <div class="cb__item">
+    <dt class="eyebrow">Instagram</dt>
+    <dd>
+      <a class="cb__ig link-draw" href={siteConfig.social.instagram} target="_blank" rel="noopener">
+        {siteConfig.social.instagramHandle}<span class="sr-only"> (abre em nova aba)</span>
+      </a>
+    </dd>
+  </div>
+</dl>
+
+<style>
+  .cb {
+    border-top: 1px solid rgb(13 26 43 / 0.14);
+  }
+  .cb__item {
+    display: grid;
+    gap: 0.6rem;
+    padding-block: 1.4rem;
+    border-bottom: 1px solid rgb(13 26 43 / 0.14);
+  }
+  @media (min-width: 40rem) {
+    .cb__item {
+      grid-template-columns: 11rem 1fr;
+      gap: 2rem;
+    }
+  }
+  dt {
+    color: var(--color-gold-ink);
+    padding-top: 0.35rem;
+  }
+  dd {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    color: var(--color-muted);
+  }
+  address {
+    font-style: normal;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  .cb__big {
+    align-self: flex-start;
+    font-family: var(--font-serif);
+    font-size: clamp(1.75rem, 3vw, 2.4rem);
+    line-height: 1.1;
+    color: var(--color-navy-900);
+  }
+  .cb__links {
+    display: flex;
+    gap: 1.75rem;
+    font-size: 0.9rem;
+    color: var(--color-navy-900);
+  }
+  .cb__links a,
+  .cb__map {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem; /* alvo de toque de 44px */
+  }
+  .cb__mail,
+  .cb__ig {
+    align-self: flex-start;
+    font-family: var(--font-serif);
+    font-size: 1.35rem;
+    color: var(--color-navy-900);
+    overflow-wrap: anywhere;
+  }
+  .cb__addr {
+    font-family: var(--font-serif);
+    font-size: 1.35rem;
+    line-height: 1.25;
+    color: var(--color-navy-900);
+  }
+  .cb__map {
+    align-self: flex-start;
+    margin-top: 0.4rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.9rem;
+    color: var(--color-navy-900);
+  }
+  .cb__strong {
+    font-family: var(--font-serif);
+    font-size: 1.35rem;
+    color: var(--color-navy-900);
+  }
+</style>

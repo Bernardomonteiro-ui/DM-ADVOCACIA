@@ -1,0 +1,45 @@
+---
+/** Categorias de artigos — geradas apenas para áreas que já têm artigos (sem páginas vazias). */
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/hero/PageHero.astro';
+import ArticleList from '@/components/articles/ArticleList.astro';
+import Button from '@/components/ui/Button.astro';
+import { areas, type Area } from '@/data/areas';
+import { getArticles, type Article } from '@/utils/articles';
+import { breadcrumbSchema, graph, webPageSchema } from '@/utils/schema';
+
+export const getStaticPaths = (async () => {
+  const all = await getArticles();
+  return areas
+    .map((area) => ({ area, articles: all.filter((a) => a.data.area === area.slug) }))
+    .filter((c) => c.articles.length > 0)
+    .map(({ area, articles }) => ({ params: { area: area.slug }, props: { area, articles } }));
+}) satisfies GetStaticPaths;
+
+interface Props {
+  area: Area;
+  articles: Article[];
+}
+const { area, articles } = Astro.props;
+const path = `/artigos/categoria/${area.slug}`;
+const title = `Artigos sobre ${area.name}`;
+const description = `Artigos da DM Advocacia sobre ${area.name}: ${area.summary}`;
+const crumbs = [
+  { name: 'Início', path: '/' },
+  { name: 'Artigos', path: '/artigos' },
+  { name: area.name, path },
+];
+const schema = graph(webPageSchema({ path, title, description, type: 'CollectionPage' }), breadcrumbSchema(crumbs));
+---
+
+<BaseLayout title={title} description={description} schema={schema}>
+  <PageHero kicker={`Artigos sobre ${area.name}`} title={area.name} lead={area.lead} breadcrumbs={crumbs}>
+    <Button href={`/${area.slug}`} variant="text">Página de {area.name}</Button>
+  </PageHero>
+  <section class="section-y" style="background:#fff" aria-label={title}>
+    <div class="wrap">
+      <ArticleList articles={articles} />
+    </div>
+  </section>
+</BaseLayout>

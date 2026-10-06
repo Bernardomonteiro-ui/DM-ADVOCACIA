@@ -1,0 +1,111 @@
+---
+import WhatsAppButton from '@/components/whatsapp/WhatsAppButton.astro';
+import { siteConfig, whatsappMessages } from '@/config/site';
+
+const modes = [
+  {
+    title: 'No escritório',
+    text: `Atendimento presencial no bairro ${siteConfig.address.neighborhood}, em ${siteConfig.address.city}.`,
+  },
+  {
+    title: 'Por chamada de vídeo',
+    text: 'A mesma atenção do atendimento presencial, sem a necessidade de deslocamento.',
+  },
+  {
+    title: 'Em todo o Brasil',
+    text: 'Clientes de outras cidades e estados são atendidos de forma remota.',
+  },
+];
+---
+
+<section class="att section-y" aria-labelledby="att-title">
+  <div class="wrap">
+    <div class="att__head">
+      <h2 id="att-title" class="h-xl">Atendimento humanizado, presencial ou por vídeo</h2>
+    </div>
+
+    <ul class="att__modes">
+      {
+        modes.map((m) => (
+          <li class="att__mode">
+            <h3 class="att__mode-title">{m.title}</h3>
+            <p class="att__mode-text">{m.text}</p>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="att__band">
+      <div>
+        <p class="att__band-title">{siteConfig.hours.short}</p>
+        <p class="att__band-text">{siteConfig.hours.long}</p>
+      </div>
+      <WhatsAppButton message={whatsappMessages.general} label="Agendar atendimento" track="atendimento-whatsapp" />
+    </div>
+  </div>
+</section>
+
+<style>
+  .att {
+    background: #fff;
+  }
+  .att__head h2 {
+    max-width: 24ch;
+  }
+
+  .att__modes {
+    margin-top: clamp(2.5rem, 5vw, 4.5rem);
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 48rem) {
+    .att__modes {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  .att__mode {
+    padding: 1.5rem 0;
+    border-top: 1px solid rgb(15 30 51 / 0.12);
+  }
+  @media (min-width: 48rem) {
+    .att__mode {
+      padding: 1.75rem clamp(1.25rem, 2.5vw, 2.5rem) 0.5rem;
+      border-top: 0;
+      border-left: 1px solid rgb(15 30 51 / 0.12);
+    }
+    .att__mode:first-child {
+      padding-left: 0;
+      border-left: 0;
+    }
+  }
+  .att__mode-title {
+    font-size: clamp(1.5rem, 2.2vw, 1.9rem);
+  }
+  .att__mode-text {
+    margin-top: 0.6rem;
+    color: var(--color-muted);
+    max-width: 22rem;
+  }
+
+  .att__band {
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem 3rem;
+    padding: clamp(1.5rem, 3vw, 2.25rem) clamp(1.25rem, 3vw, 2.5rem);
+    background: var(--color-paper);
+    border-left: 2px solid var(--color-gold);
+  }
+  .att__band-title {
+    font-family: var(--font-serif);
+    font-size: 1.45rem;
+    line-height: 1.2;
+  }
+  .att__band-text {
+    margin-top: 0.35rem;
+    color: var(--color-muted);
+    max-width: 38rem;
+  }
+</style>
