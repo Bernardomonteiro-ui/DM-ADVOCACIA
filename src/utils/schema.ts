@@ -3,10 +3,11 @@
  * Sem avaliações, estrelas, preços ou resultados.
  */
 import { siteConfig } from '@/config/site';
+import { absoluteUrl } from '@/utils/paths';
 import { areas, type Area, type FaqItem } from '@/data/areas';
 import { education } from '@/data/about';
 
-const url = (path = '/') => new URL(path, siteConfig.url).toString();
+const url = (path = '/') => absoluteUrl(path);
 
 export const ids = {
   org: url('/#organizacao'),

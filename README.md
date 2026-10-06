@@ -12,6 +12,18 @@ Astro 7 + TypeScript + Tailwind CSS 4. Site estático, sem back-end.
 | `npm run preview` | Serve o `dist/` localmente |
 | `npm run images` | Reprocessa as fotos de `materiais/` para `src/assets/fotos/` e gera `public/og-default.jpg` |
 
+## Publicação (GitHub Pages)
+
+O workflow [.github/workflows/deploy.yml](.github/workflows/deploy.yml) faz o build a cada push na `main` e publica em
+`https://bernardomonteiro-ui.github.io/DM-ADVOCACIA/`.
+
+- **Uma vez só:** em *Settings → Pages → Build and deployment → Source*, escolher **GitHub Actions**. No modo
+  “Deploy from a branch” o GitHub tenta usar Jekyll e falha (`Invalid YAML front matter in ...astro`).
+- O endereço é definido por variáveis de ambiente (`SITE_URL`, `BASE_PATH`). Todo link interno passa por
+  `link()` em `src/utils/paths.ts`, por isso o site funciona tanto em subdiretório quanto na raiz.
+- O preview usa `PUBLIC_NOINDEX=true` (fora do Google). **Ao ir para o domínio definitivo:** no workflow, trocar
+  `SITE_URL` pelo domínio, `BASE_PATH` por `/`, e remover `PUBLIC_NOINDEX`.
+
 ## Onde editar
 
 - **Contato, endereço, OAB, WhatsApp, Instagram, horário, domínio** → `src/config/site.ts` (fonte única; nenhum componente repete esses dados).

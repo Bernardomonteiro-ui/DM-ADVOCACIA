@@ -1,4 +1,5 @@
 ---
+import { link } from '@/utils/paths';
 import Icon from '@/components/ui/Icon.astro';
 import { areaBySlug } from '@/data/areas';
 import { formatDate, type Article } from '@/utils/articles';
@@ -13,7 +14,7 @@ const { articles } = Astro.props;
   {
     articles.map((a) => (
       <li>
-        <a href={`/artigos/${a.id}`} class="al__row">
+        <a href={link(`/artigos/${a.id}`)} class="al__row">
           <span class="al__meta">
             <span class="eyebrow al__cat">{areaBySlug(a.data.area)?.short}</span>
             <time datetime={a.data.pubDate.toISOString()}>{formatDate(a.data.pubDate)}</time>

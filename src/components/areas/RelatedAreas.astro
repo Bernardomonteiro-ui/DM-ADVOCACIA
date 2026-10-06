@@ -1,4 +1,5 @@
 ---
+import { link } from '@/utils/paths';
 import Icon from '@/components/ui/Icon.astro';
 import { areaBySlug, type Area } from '@/data/areas';
 
@@ -12,7 +13,7 @@ const related = Astro.props.slugs.map(areaBySlug).filter((a): a is Area => Boole
   {
     related.map((a) => (
       <li>
-        <a href={`/${a.slug}`} class="ra__link">
+        <a href={link(`/${a.slug}`)} class="ra__link">
           <span class="numeral ra__num">{a.number}</span>
           <span class="ra__name">{a.name}</span>
           <span class="ra__sum">{a.summary}</span>

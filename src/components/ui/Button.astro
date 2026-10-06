@@ -1,4 +1,5 @@
 ---
+import { link } from '@/utils/paths';
 import Icon from './Icon.astro';
 
 interface Props {
@@ -13,10 +14,11 @@ interface Props {
 }
 const { href, variant = 'solid', icon, external = false, class: className, track } = Astro.props;
 const ext = external || href.startsWith('http');
+const url = link(href);
 ---
 
 <a
-  href={href}
+  href={url}
   class:list={['btn', `btn--${variant}`, className]}
   data-cta={track}
   {...ext ? { target: '_blank', rel: 'noopener' } : {}}

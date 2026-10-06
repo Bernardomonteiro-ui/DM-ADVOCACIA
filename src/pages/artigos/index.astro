@@ -1,4 +1,5 @@
 ---
+import { link } from '@/utils/paths';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/hero/PageHero.astro';
 import ArticleList from '@/components/articles/ArticleList.astro';
@@ -37,11 +38,11 @@ const schema = graph(
       {
         categories.length > 0 && (
           <nav class="cats" aria-label="Categorias">
-            <a href="/artigos" class="cats__link" aria-current="page">
+            <a href={link('/artigos')} class="cats__link" aria-current="page">
               Todos
             </a>
             {categories.map((c) => (
-              <a href={`/artigos/categoria/${c.slug}`} class="cats__link">
+              <a href={link(`/artigos/categoria/${c.slug}`)} class="cats__link">
                 {c.short}
               </a>
             ))}

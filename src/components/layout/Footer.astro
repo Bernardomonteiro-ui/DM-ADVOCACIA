@@ -1,4 +1,5 @@
 ---
+import { link } from '@/utils/paths';
 import Logo from '@/components/ui/Logo.astro';
 import Icon from '@/components/ui/Icon.astro';
 import { mainNav, siteConfig, whatsappLink, mailLink, telLink, fullAddress } from '@/config/site';
@@ -11,7 +12,7 @@ const year = new Date().getFullYear();
   <div class="wrap">
     <div class="footer__top">
       <div class="footer__brand">
-        <a href="/" aria-label={`${siteConfig.name} — página inicial`}><Logo tone="light" /></a>
+        <a href={link('/')} aria-label={`${siteConfig.name} — página inicial`}><Logo tone="light" /></a>
         <p>
           Escritório de advocacia em Porto Alegre. Cada cliente é atendido por um profissional especializado na
           área do seu caso.
@@ -21,15 +22,15 @@ const year = new Date().getFullYear();
       <nav class="footer__col" aria-label="Rodapé — institucional">
         <p class="eyebrow footer__label">Escritório</p>
         <ul>
-          <li><a class="link-draw" href="/">Início</a></li>
-          {mainNav.map((i) => <li><a class="link-draw" href={i.href}>{i.label}</a></li>)}
+          <li><a class="link-draw" href={link('/')}>Início</a></li>
+          {mainNav.map((i) => <li><a class="link-draw" href={link(i.href)}>{i.label}</a></li>)}
         </ul>
       </nav>
 
       <nav class="footer__col" aria-label="Rodapé — áreas de atuação">
         <p class="eyebrow footer__label">Áreas</p>
         <ul class="footer__areas">
-          {areas.map((a) => <li><a class="link-draw" href={`/${a.slug}`}>{a.name}</a></li>)}
+          {areas.map((a) => <li><a class="link-draw" href={link(`/${a.slug}`)}>{a.name}</a></li>)}
         </ul>
       </nav>
 
@@ -57,7 +58,7 @@ const year = new Date().getFullYear();
       <p>
         © {year} {siteConfig.name}. {siteConfig.lawyer.name}, {siteConfig.lawyer.oab}.
       </p>
-      <a class="link-draw" href="/politica-de-privacidade">Política de privacidade</a>
+      <a class="link-draw" href={link('/politica-de-privacidade')}>Política de privacidade</a>
       <p class="footer__disclaimer">Conteúdo de caráter informativo. Não constitui consulta jurídica.</p>
       <a href={siteConfig.social.instagram} class="footer__ig" target="_blank" rel="noopener">
         <Icon name="instagram" size={18} />

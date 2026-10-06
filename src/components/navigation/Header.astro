@@ -1,10 +1,11 @@
 ---
+import { link, logicalPath } from '@/utils/paths';
 import Logo from '@/components/ui/Logo.astro';
 import Icon from '@/components/ui/Icon.astro';
 import { mainNav, siteConfig, whatsappLink, whatsappMessages } from '@/config/site';
 import { areas } from '@/data/areas';
 
-const path = Astro.url.pathname.replace(/(\/index)?\.html$/, '').replace(/\/$/, '') || '/';
+const path = logicalPath(Astro.url.pathname);
 const isCurrent = (href: string) =>
   path === href || (href === '/areas-de-atuacao' && areas.some((a) => path === `/${a.slug}`)) || (href !== '/' && path.startsWith(href + '/'));
 const wa = whatsappLink(whatsappMessages.general);
@@ -12,7 +13,7 @@ const wa = whatsappLink(whatsappMessages.general);
 
 <header class="site-header" data-header>
   <div class="wrap site-header__inner">
-    <a href="/" class="site-header__logo" aria-label={`${siteConfig.name} — página inicial`}>
+    <a href={link('/')} class="site-header__logo" aria-label={`${siteConfig.name} — página inicial`}>
       <Logo />
     </a>
 
@@ -22,14 +23,14 @@ const wa = whatsappLink(whatsappMessages.general);
           mainNav.map((item) =>
             item.href === '/areas-de-atuacao' ? (
               <li class="has-menu">
-                <a href={item.href} class="site-nav__link" aria-current={isCurrent(item.href) ? 'page' : undefined}>
+                <a href={link(item.href)} class="site-nav__link" aria-current={isCurrent(item.href) ? 'page' : undefined}>
                   {item.label}
                 </a>
                 <div class="mega">
                   <ul class="mega__list">
                     {areas.map((a) => (
                       <li>
-                        <a href={`/${a.slug}`} class="mega__item">
+                        <a href={link(`/${a.slug}`)} class="mega__item">
                           <span class="mega__num numeral">{a.number}</span>
                           <span>{a.name}</span>
                         </a>
@@ -40,7 +41,7 @@ const wa = whatsappLink(whatsappMessages.general);
               </li>
             ) : (
               <li>
-                <a href={item.href} class="site-nav__link" aria-current={isCurrent(item.href) ? 'page' : undefined}>
+                <a href={link(item.href)} class="site-nav__link" aria-current={isCurrent(item.href) ? 'page' : undefined}>
                   {item.label}
                 </a>
               </li>
@@ -68,15 +69,15 @@ const wa = whatsappLink(whatsappMessages.general);
   <div class="wrap mobile-menu__inner">
     <nav aria-label="Menu móvel">
       <ul class="mobile-menu__main">
-        <li><a href="/">Início</a></li>
-        {mainNav.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+        <li><a href={link('/')}>Início</a></li>
+        {mainNav.map((item) => <li><a href={link(item.href)}>{item.label}</a></li>)}
       </ul>
       <p class="eyebrow mobile-menu__label">Áreas de atuação</p>
       <ul class="mobile-menu__areas">
         {
           areas.map((a) => (
             <li>
-              <a href={`/${a.slug}`}>
+              <a href={link(`/${a.slug}`)}>
                 <span class="numeral">{a.number}</span> {a.short}
               </a>
             </li>

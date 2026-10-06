@@ -1,4 +1,5 @@
 ---
+import { link } from '@/utils/paths';
 interface Props {
   items: { name: string; path: string }[];
   tone?: 'dark' | 'light';
@@ -12,7 +13,7 @@ const { items, tone = 'dark' } = Astro.props;
       items.map((it, i) => (
         <li>
           {i < items.length - 1 ? (
-            <a href={it.path} class="link-draw">
+            <a href={link(it.path)} class="link-draw">
               {it.name}
             </a>
           ) : (

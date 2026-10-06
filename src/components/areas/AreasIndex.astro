@@ -1,4 +1,5 @@
 ---
+import { link } from '@/utils/paths';
 /**
  * Índice interativo das áreas.
  * Desktop: lista à esquerda + painel fixo à direita que acompanha o hover/foco.
@@ -19,7 +20,7 @@ const H = headingLevel;
     {
       areas.map((a, i) => (
         <li>
-          <a href={`/${a.slug}`} class="ai__row" data-area-index={i}>
+          <a href={link(`/${a.slug}`)} class="ai__row" data-area-index={i}>
             <span class="numeral ai__num">{a.number}</span>
             <span class="ai__body">
               <H class="ai__name">{a.name}</H>

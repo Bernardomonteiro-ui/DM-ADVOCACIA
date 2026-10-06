@@ -1,4 +1,5 @@
 ---
+import { link } from '@/utils/paths';
 import '@/styles/global.css';
 import serifFont from '@fontsource-variable/newsreader/files/newsreader-latin-wght-normal.woff2?url';
 import sansFont from '@fontsource-variable/instrument-sans/files/instrument-sans-latin-wght-normal.woff2?url';
@@ -12,7 +13,7 @@ const props = Astro.props;
 const speculationRules = {
   prerender: [
     {
-      where: { and: [{ href_matches: '/*' }, { not: { selector_matches: '[target=_blank]' } }] },
+      where: { and: [{ href_matches: link('/') + '*' }, { not: { selector_matches: '[target=_blank]' } }] },
       eagerness: 'conservative',
     },
   ],
@@ -27,9 +28,9 @@ const speculationRules = {
     <script is:inline>document.documentElement.classList.add('js');</script>
     <link rel="preload" href={serifFont} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={sansFont} as="font" type="font/woff2" crossorigin />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="icon" href={link('/favicon.svg')} type="image/svg+xml" />
+    <link rel="apple-touch-icon" href={link('/apple-touch-icon.png')} />
+    <link rel="sitemap" href={link('/sitemap-index.xml')} />
     <meta name="theme-color" content="#0f1e33" />
     <meta name="format-detection" content="telephone=no" />
     <SEO {...props} />
