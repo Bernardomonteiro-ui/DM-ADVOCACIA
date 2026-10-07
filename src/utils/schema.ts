@@ -88,13 +88,12 @@ export function personSchema() {
   };
 }
 
-/** Sócio: somente a formação informada (Bacharel em Direito), sem registro profissional. */
+/** Douglas Marcolino: somente a formação informada (Bacharel em Direito), sem registro profissional. */
 export function partnerSchema() {
   return {
     '@type': 'Person',
     '@id': url(`/sobre#${partner.id}`),
     name: partner.name,
-    jobTitle: partner.role,
     worksFor: { '@id': ids.org },
     url: url(`/sobre#${partner.id}`),
     knowsAbout: [...partner.studies],

@@ -14,7 +14,7 @@ import photoFront from '@/assets/fotos/deivid-marcolino-bracos-cruzados.jpg';
 import photoPartner from '@/assets/fotos/douglas-marcolino.jpg';
 
 const title = `${siteConfig.lawyer.name} | Advogado em Porto Alegre`;
-const description = `Conheça ${siteConfig.lawyer.name} (${siteConfig.lawyer.oab}), fundador da DM Advocacia, com mais de ${siteConfig.lawyer.yearsOfExperience} anos de experiência jurídica, e o sócio ${partner.name}.`;
+const description = `Conheça ${siteConfig.lawyer.name} (${siteConfig.lawyer.oab}), fundador da DM Advocacia, com mais de ${siteConfig.lawyer.yearsOfExperience} anos de experiência jurídica, e ${partner.name}.`;
 const crumbs = [
   { name: 'Início', path: '/' },
   { name: 'Sobre', path: '/sobre' },
@@ -113,7 +113,7 @@ const schema = graph(
     </div>
   </section>
 
-  <!-- Sócio -->
+  <!-- Douglas Marcolino -->
   <section class="pt section-y" id={partner.id} aria-labelledby="pt-title">
     <div class="wrap pt__grid">
       <figure class="pt__figure">
@@ -128,7 +128,6 @@ const schema = graph(
         </div>
       </figure>
       <div class="pt__copy">
-        <p class="pt__role">{partner.role}</p>
         <h2 id="pt-title" class="h-xl">{partner.name}</h2>
         <p class="pt__cred">{partner.credential}<br />{partner.focus}</p>
         <div class="pt__bio">
@@ -187,7 +186,7 @@ const schema = graph(
 </BaseLayout>
 
 <style>
-  /* Sócio */
+  /* Douglas Marcolino */
   .pt {
     background: var(--color-white);
   }
@@ -215,12 +214,6 @@ const schema = graph(
     height: 100%;
     object-fit: cover;
     object-position: 50% 15%;
-  }
-  .pt__role {
-    font-size: 0.95rem;
-    font-weight: 500;
-    color: var(--color-gold-ink);
-    margin-bottom: 0.75rem;
   }
   .pt__cred {
     margin-top: 1rem;

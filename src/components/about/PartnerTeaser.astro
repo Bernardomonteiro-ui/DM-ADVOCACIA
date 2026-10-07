@@ -1,0 +1,112 @@
+---
+/** Seção do Douglas Marcolino na Home — mesma estrutura do bloco do Deivid, espelhada (foto à direita). */
+import { Picture } from 'astro:assets';
+import Button from '@/components/ui/Button.astro';
+import { partner } from '@/data/about';
+import photo from '@/assets/fotos/douglas-marcolino.jpg';
+---
+
+<section class="ptn section-y" aria-labelledby="ptn-title">
+  <div class="wrap ptn__grid">
+    <div class="ptn__copy">
+      <h2 id="ptn-title" class="h-xl">{partner.name}</h2>
+      <p class="ptn__role">{partner.credential}, {partner.focus.toLowerCase()}</p>
+
+      <p class="ptn__statement">{partner.highlight}</p>
+      <p class="ptn__text">{partner.summary}</p>
+
+      <h3 class="ptn__list-title">Aprofundamento acadêmico</h3>
+      <ul class="ptn__list">
+        {partner.studies.map((s) => <li>{s}</li>)}
+      </ul>
+
+      <div class="ptn__cta">
+        <Button href={`/sobre#${partner.id}`} variant="text">Conheça a trajetória de {partner.name}</Button>
+      </div>
+    </div>
+
+    <figure class="ptn__figure">
+      <div class="ptn__frame" data-reveal="clip">
+        <Picture
+          src={photo}
+          formats={['avif', 'webp']}
+          widths={[420, 640, 853]}
+          sizes="(min-width: 64rem) 46vw, 92vw"
+          alt={`${partner.name}, de terno escuro, em frente a uma estante de livros`}
+        />
+      </div>
+    </figure>
+  </div>
+</section>
+
+<style>
+  .ptn {
+    background: var(--color-paper-2);
+  }
+  .ptn__grid {
+    display: grid;
+    gap: 3rem;
+    grid-template-columns: 1fr;
+  }
+  /* No celular, a foto vem primeiro, como no bloco do Deivid */
+  .ptn__figure {
+    order: -1;
+    margin: 0;
+  }
+  @media (min-width: 64rem) {
+    .ptn__grid {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+      gap: clamp(3rem, 6vw, 6rem);
+      align-items: center;
+    }
+    .ptn__figure {
+      order: 0;
+    }
+  }
+  .ptn__frame {
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    background: #1d1a17;
+  }
+  .ptn__frame :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 15%;
+  }
+  .ptn__role {
+    margin-top: 0.75rem;
+    color: var(--color-muted);
+  }
+  .ptn__statement {
+    margin-top: clamp(1.75rem, 3vw, 2.5rem);
+    padding-top: 1.25rem;
+    border-top: 2px solid var(--color-gold);
+    font-family: var(--font-serif);
+    font-size: clamp(1.6rem, 2.6vw, 2.2rem);
+    line-height: 1.2;
+    max-width: 22ch;
+  }
+  .ptn__text {
+    margin-top: 1rem;
+    max-width: 36rem;
+    color: var(--color-muted);
+  }
+  .ptn__list-title {
+    margin-top: 2.5rem;
+    font-size: clamp(1.4rem, 2vw, 1.75rem);
+  }
+  .ptn__list {
+    margin-top: 0.75rem;
+    border-top: 1px solid rgb(var(--ink-rgb) / 0.12);
+  }
+  .ptn__list li {
+    padding-block: 0.75rem;
+    border-bottom: 1px solid rgb(var(--ink-rgb) / 0.12);
+    font-family: var(--font-serif);
+    font-size: 1.15rem;
+  }
+  .ptn__cta {
+    margin-top: 1.25rem;
+  }
+</style>

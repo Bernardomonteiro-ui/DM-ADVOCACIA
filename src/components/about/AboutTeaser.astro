@@ -2,10 +2,8 @@
 import { Picture } from 'astro:assets';
 import Button from '@/components/ui/Button.astro';
 import { siteConfig } from '@/config/site';
-import { education, partner } from '@/data/about';
-import { link } from '@/utils/paths';
+import { education } from '@/data/about';
 import photo from '@/assets/fotos/deivid-marcolino-bracos-cruzados.jpg';
-import partnerPhoto from '@/assets/fotos/douglas-marcolino.jpg';
 ---
 
 <section class="about section-y" aria-labelledby="about-title">
@@ -40,22 +38,6 @@ import partnerPhoto from '@/assets/fotos/douglas-marcolino.jpg';
       <ul class="about__edu">
         {education.map((e) => <li>{e.title}</li>)}
       </ul>
-
-      <a class="about__partner" href={link(`/sobre#${partner.id}`)}>
-        <Picture
-          src={partnerPhoto}
-          formats={['avif', 'webp']}
-          widths={[96, 192]}
-          sizes="96px"
-          alt=""
-          class="about__partner-img"
-        />
-        <span class="about__partner-text">
-          <span class="about__partner-role">{partner.role}</span>
-          <span class="about__partner-name">{partner.name}</span>
-          <span class="about__partner-cred">{partner.credential}, {partner.focus.toLowerCase()}</span>
-        </span>
-      </a>
 
       <div class="about__cta">
         <Button href="/sobre" variant="text">Trajetória e formação completas</Button>
@@ -134,48 +116,6 @@ import partnerPhoto from '@/assets/fotos/douglas-marcolino.jpg';
     border-bottom: 1px solid rgb(var(--ink-rgb) / 0.12);
     font-family: var(--font-serif);
     font-size: 1.15rem;
-  }
-  .about__partner {
-    margin-top: 2.25rem;
-    display: flex;
-    align-items: center;
-    gap: 1.1rem;
-    padding: 1rem 1.25rem 1rem 1rem;
-    border-radius: 999px 1.25rem 1.25rem 999px;
-    background: rgb(var(--ink-rgb) / 0.05);
-    transition: background-color var(--dur-hover) ease-out;
-  }
-  .about__partner:hover,
-  .about__partner:focus-visible {
-    background: rgb(var(--ink-rgb) / 0.09);
-  }
-  .about__partner :global(img) {
-    flex: none;
-    width: 4.5rem;
-    height: 4.5rem;
-    border-radius: 50%;
-    object-fit: cover;
-    object-position: 50% 12%;
-  }
-  .about__partner-text {
-    display: flex;
-    flex-direction: column;
-    gap: 0.1rem;
-    min-width: 0;
-  }
-  .about__partner-role {
-    font-size: 0.85rem;
-    font-weight: 500;
-    color: var(--color-gold-ink);
-  }
-  .about__partner-name {
-    font-family: var(--font-serif);
-    font-size: 1.3rem;
-    line-height: 1.2;
-  }
-  .about__partner-cred {
-    font-size: 0.9rem;
-    color: var(--color-muted);
   }
   .about__cta {
     margin-top: 1.25rem;
