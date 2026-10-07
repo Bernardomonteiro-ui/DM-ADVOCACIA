@@ -113,10 +113,10 @@ const wa = whatsappLink(whatsappMessages.general);
   }
   .site-header[data-scrolled] {
     --header-h: 4.25rem;
-    background: rgb(239 239 236 / 0.88);
+    background: rgb(var(--paper-rgb) / 0.88);
     backdrop-filter: saturate(1.4) blur(14px);
     -webkit-backdrop-filter: saturate(1.4) blur(14px);
-    box-shadow: 0 1px 0 rgb(13 26 43 / 0.08);
+    box-shadow: 0 1px 0 rgb(var(--ink-rgb) / 0.08);
   }
   .site-header[data-scrolled] :global(.logo__mark) {
     height: 2.4rem;
@@ -127,7 +127,7 @@ const wa = whatsappLink(whatsappMessages.general);
 
   /* Sobre o hero escuro da Home: transparente, texto claro, CTA em contorno */
   .site-header--overlay:not([data-scrolled]) {
-    color: #fff;
+    color: var(--color-white);
   }
 
   .site-header__inner {
@@ -192,7 +192,7 @@ const wa = whatsappLink(whatsappMessages.general);
     width: 34rem;
     padding: 1.5rem 1.75rem;
     background: var(--color-paper);
-    box-shadow: 0 24px 60px -24px rgb(13 26 43 / 0.28), 0 0 0 1px rgb(13 26 43 / 0.06);
+    box-shadow: 0 24px 60px -24px rgb(var(--ink-rgb) / 0.28), 0 0 0 1px rgb(var(--ink-rgb) / 0.06);
     opacity: 0;
     visibility: hidden;
     transform: translateY(-6px);
@@ -219,7 +219,7 @@ const wa = whatsappLink(whatsappMessages.general);
     gap: 0.75rem;
     padding: 0.6rem 0;
     font-size: 0.95rem;
-    border-bottom: 1px solid rgb(13 26 43 / 0.07);
+    border-bottom: 1px solid rgb(var(--ink-rgb) / 0.07);
     transition: color var(--dur-hover), padding-left var(--dur-hover) var(--ease-out-quint);
   }
   .mega__item:hover,
@@ -246,7 +246,7 @@ const wa = whatsappLink(whatsappMessages.general);
     height: 2.75rem;
     padding-inline: 1.35rem;
     background: var(--color-whatsapp);
-    color: var(--color-navy-950);
+    color: var(--color-on-accent);
     font-size: 0.9rem;
     font-weight: 550;
     transition: background-color var(--dur-hover) ease-out;
@@ -346,7 +346,7 @@ const wa = whatsappLink(whatsappMessages.general);
   .mobile-menu__areas a {
     display: block;
     padding: 0.6rem 0;
-    border-bottom: 1px solid rgb(245 242 236 / 0.1);
+    border-bottom: 1px solid rgb(var(--light-rgb) / 0.1);
     font-size: 0.95rem;
   }
   .mobile-menu__areas .numeral {
@@ -367,7 +367,7 @@ const wa = whatsappLink(whatsappMessages.general);
     gap: 0.6rem;
     height: 3.4rem;
     background: var(--color-whatsapp);
-    color: var(--color-navy-950);
+    color: var(--color-on-accent);
     font-size: 1rem;
     font-weight: 550;
   }

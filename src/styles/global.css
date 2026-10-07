@@ -35,6 +35,44 @@
   --ease-in-out-cubic: cubic-bezier(0.65, 0, 0.35, 1);
 }
 
+/* Canais RGB para cores translúcidas (linhas, véus, gradientes) — trocam junto com o tema */
+:root {
+  --color-white: #ffffff;
+  --color-on-accent: #0a1424; /* texto sobre verde/latão: sempre escuro */
+  --ink-rgb: 15 30 51;
+  --shade-rgb: 10 20 36;
+  --light-rgb: 255 255 255;
+  --paper-rgb: 239 239 236;
+  --gold-soft-rgb: 205 182 140;
+}
+
+/* ----------------------------------------------------------------------------
+   TEMA INVERTIDO (teste): o que era branco/claro vira azul, o que era azul vira branco.
+   Ativado com ?tema=invertido na URL (vale para a aba, via sessionStorage).
+   O latão de texto troca de tom para manter o contraste.
+   ---------------------------------------------------------------------------- */
+:root[data-theme='invertido'] {
+  --color-navy-950: #ffffff;
+  --color-navy-900: #f6f6f3;
+  --color-navy-800: #ececE8;
+  --color-navy-700: #dcdcd6;
+  --color-paper: #13233a;
+  --color-paper-2: #1a2d48;
+  --color-stone: #2b3e5a;
+  --color-white: #0f1e33;
+  --color-ink: #f4f4f1;
+  --color-muted: #b4bccb;
+  --color-mist: #535c6a;
+  --color-gold-ink: #cdb68c;
+  --color-gold-soft: #7c5e33;
+  --ink-rgb: 244 244 241;
+  --shade-rgb: 255 255 255;
+  --light-rgb: 15 30 51;
+  --paper-rgb: 19 35 58;
+  --gold-soft-rgb: 124 94 51;
+  color-scheme: dark;
+}
+
 :root {
   /* Resposta a interação: rápida. Revelações: lentas e raras. */
   --dur-hover: 200ms;

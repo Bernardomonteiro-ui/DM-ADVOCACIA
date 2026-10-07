@@ -29,7 +29,7 @@ const related = Astro.props.slugs.map(areaBySlug).filter((a): a is Area => Boole
     display: grid;
     gap: 0;
     grid-template-columns: 1fr;
-    border-top: 1px solid rgb(13 26 43 / 0.14);
+    border-top: 1px solid rgb(var(--ink-rgb) / 0.14);
   }
   @media (min-width: 48rem) {
     .ra {
@@ -44,13 +44,13 @@ const related = Astro.props.slugs.map(areaBySlug).filter((a): a is Area => Boole
     gap: 0.5rem;
     height: 100%;
     padding: 1.6rem 0;
-    border-bottom: 1px solid rgb(13 26 43 / 0.14);
+    border-bottom: 1px solid rgb(var(--ink-rgb) / 0.14);
   }
   @media (min-width: 48rem) {
     .ra__link {
       padding: 1.75rem 2rem 2rem;
       border-bottom: 0;
-      border-left: 1px solid rgb(13 26 43 / 0.14);
+      border-left: 1px solid rgb(var(--ink-rgb) / 0.14);
     }
     .ra li:first-child .ra__link {
       padding-left: 0;

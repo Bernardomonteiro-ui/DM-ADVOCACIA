@@ -55,7 +55,7 @@ import { siteConfig, fullAddress } from '@/config/site';
     inset: 0;
     width: 100%;
     height: 100%;
-    color: rgb(211 189 148 / 0.22);
+    color: rgb(var(--gold-soft-rgb) / 0.22);
   }
   .map__pin {
     position: absolute;
@@ -65,13 +65,13 @@ import { siteConfig, fullAddress } from '@/config/site';
     height: 0.9rem;
     border-radius: 999px;
     background: var(--color-gold-soft);
-    box-shadow: 0 0 0 0.6rem rgb(211 189 148 / 0.15), 0 0 0 1.4rem rgb(211 189 148 / 0.06);
+    box-shadow: 0 0 0 0.6rem rgb(var(--gold-soft-rgb) / 0.15), 0 0 0 1.4rem rgb(var(--gold-soft-rgb) / 0.06);
   }
   .map__info {
     position: absolute;
     inset: auto 0 0 0;
     padding: clamp(1.25rem, 3vw, 2rem);
-    background: linear-gradient(180deg, transparent, rgb(8 17 29 / 0.92) 35%);
+    background: linear-gradient(180deg, transparent, rgb(var(--shade-rgb) / 0.92) 35%);
   }
   .map__info .eyebrow {
     color: var(--color-gold-soft);
@@ -97,7 +97,7 @@ import { siteConfig, fullAddress } from '@/config/site';
     font-size: 0.95rem;
     font-weight: 550;
     color: var(--color-paper);
-    box-shadow: inset 0 0 0 1px rgb(245 242 236 / 0.35);
+    box-shadow: inset 0 0 0 1px rgb(var(--light-rgb) / 0.35);
     cursor: pointer;
     transition: background-color var(--dur-hover), color var(--dur-hover);
   }

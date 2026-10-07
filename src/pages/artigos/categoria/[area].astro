@@ -37,7 +37,7 @@ const schema = graph(webPageSchema({ path, title, description, type: 'Collection
   <PageHero kicker={`Artigos sobre ${area.name}`} title={area.name} lead={area.lead} breadcrumbs={crumbs}>
     <Button href={`/${area.slug}`} variant="text">Página de {area.name}</Button>
   </PageHero>
-  <section class="section-y" style="background:#fff" aria-label={title}>
+  <section class="section-y" style="background:var(--color-white)" aria-label={title}>
     <div class="wrap">
       <ArticleList articles={articles} />
     </div>

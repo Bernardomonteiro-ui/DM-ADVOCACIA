@@ -47,7 +47,7 @@ const modes = [
 
 <style>
   .att {
-    background: #fff;
+    background: var(--color-white);
   }
   .att__head h2 {
     max-width: 24ch;
@@ -65,13 +65,13 @@ const modes = [
   }
   .att__mode {
     padding: 1.5rem 0;
-    border-top: 1px solid rgb(15 30 51 / 0.12);
+    border-top: 1px solid rgb(var(--ink-rgb) / 0.12);
   }
   @media (min-width: 48rem) {
     .att__mode {
       padding: 1.75rem clamp(1.25rem, 2.5vw, 2.5rem) 0.5rem;
       border-top: 0;
-      border-left: 1px solid rgb(15 30 51 / 0.12);
+      border-left: 1px solid rgb(var(--ink-rgb) / 0.12);
     }
     .att__mode:first-child {
       padding-left: 0;

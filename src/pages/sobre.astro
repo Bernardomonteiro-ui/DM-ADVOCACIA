@@ -285,7 +285,7 @@ const schema = graph(
     }
   }
   .ed__list {
-    border-top: 1px solid rgb(13 26 43 / 0.14);
+    border-top: 1px solid rgb(var(--ink-rgb) / 0.14);
   }
   .ed__intro {
     margin-top: 1rem;
@@ -297,7 +297,7 @@ const schema = graph(
     grid-template-columns: 1fr;
     gap: 0.25rem 1rem;
     padding-block: 1.35rem;
-    border-bottom: 1px solid rgb(13 26 43 / 0.14);
+    border-bottom: 1px solid rgb(var(--ink-rgb) / 0.14);
   }
   @media (min-width: 48rem) {
     .ed__item {
@@ -323,7 +323,7 @@ const schema = graph(
 
   /* Estrutura */
   .st {
-    background: #fff;
+    background: var(--color-white);
   }
   .st__grid {
     display: grid;
@@ -358,13 +358,13 @@ const schema = graph(
   }
   .st__team {
     margin-top: 2rem;
-    border-top: 1px solid rgb(13 26 43 / 0.14);
+    border-top: 1px solid rgb(var(--ink-rgb) / 0.14);
   }
   .st__team li {
     display: flex;
     flex-direction: column;
     padding-block: 0.9rem;
-    border-bottom: 1px solid rgb(13 26 43 / 0.14);
+    border-bottom: 1px solid rgb(var(--ink-rgb) / 0.14);
   }
   .st__team-name {
     font-family: var(--font-serif);

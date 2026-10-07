@@ -31,7 +31,18 @@ const speculationRules = {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script is:inline>document.documentElement.classList.add('js');</script>
+    <script is:inline>
+      document.documentElement.classList.add('js');
+      // Tema de teste: ?tema=invertido liga, ?tema=padrao desliga (vale para a aba).
+      try {
+        const tema = new URLSearchParams(location.search).get('tema');
+        if (tema === 'padrao') sessionStorage.removeItem('tema');
+        else if (tema) sessionStorage.setItem('tema', tema);
+        if (sessionStorage.getItem('tema') === 'invertido') document.documentElement.dataset.theme = 'invertido';
+      } catch {
+        // sem sessionStorage (modo privado restrito): fica no tema padrão
+      }
+    </script>
     <link rel="preload" href={serifFont} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={sansFont} as="font" type="font/woff2" crossorigin />
     <link rel="icon" href={link('/favicon.png')} type="image/png" sizes="48x48" />
