@@ -12,6 +12,12 @@ export const siteConfig = {
   /** Nome exatamente como aparece no Perfil da Empresa no Google (consistência NAP). */
   legalName: 'DM Advocacia -lex et ordo-',
   motto: 'Lex et Ordo',
+
+  /**
+   * Tema de cores do site: 'padrao' (fundos claros, navy) ou 'invertido' (teste: fundos navy, o navy vira branco).
+   * Para comparar sem rebuild: ?tema=padrao ou ?tema=invertido na URL (vale para a aba).
+   */
+  theme: 'invertido' as 'padrao' | 'invertido',
   tagline: ['Especialistas em cada causa.', 'Soluções em cada caso.'] as const,
 
   /** [TODO — CONFIRMAR COM CLIENTE] domínio definitivo. Manter igual a astro.config.mjs. */
