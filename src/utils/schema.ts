@@ -5,7 +5,7 @@
 import { siteConfig } from '@/config/site';
 import { absoluteUrl } from '@/utils/paths';
 import { areas, type Area, type FaqItem } from '@/data/areas';
-import { education } from '@/data/about';
+import { education, partner } from '@/data/about';
 
 const url = (path = '/') => absoluteUrl(path);
 
@@ -85,6 +85,24 @@ export function personSchema() {
         name: e.title,
       })),
     ],
+  };
+}
+
+/** Sócio: somente a formação informada (Bacharel em Direito), sem registro profissional. */
+export function partnerSchema() {
+  return {
+    '@type': 'Person',
+    '@id': url(`/sobre#${partner.id}`),
+    name: partner.name,
+    jobTitle: partner.role,
+    worksFor: { '@id': ids.org },
+    url: url(`/sobre#${partner.id}`),
+    knowsAbout: [...partner.studies],
+    hasCredential: {
+      '@type': 'EducationalOccupationalCredential',
+      credentialCategory: 'Graduação',
+      name: partner.credential,
+    },
   };
 }
 

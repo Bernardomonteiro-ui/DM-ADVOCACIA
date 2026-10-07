@@ -38,11 +38,12 @@ O workflow [.github/workflows/deploy.yml](.github/workflows/deploy.yml) faz o bu
 2. **Domínio definitivo** — hoje `https://www.dmadvocacia.com.br` em `src/config/site.ts` **e** `astro.config.mjs` (ou variável `SITE_URL`). Afeta canonical, sitemap, Open Graph e Schema.
 3. **Horário** — interpretado como "atendimento com horário marcado, inclusive fora do horário comercial quando previamente agendado". O Schema.org declara 24h, coerente com o Perfil do Google.
 4. **Endereço** — usado o formato do Perfil do Google ("Rua Engenheiro Fernando Abreu Pereira, 107 — Sala 205, Sarandi, 91130-030") para consistência NAP. O briefing traz "Eng. Fernando **de** Abreu Pereira": confirmar a grafia oficial e manter igual no Google.
-5. **Equipe** — nomes, OAB e áreas dos demais profissionais (ex.: o Perfil do Google cita a "Dra. Daniela").
-6. **Formação** — instituições e anos das pós-graduações e do MBA.
-7. **Revisão jurídica dos textos** das 8 áreas (`src/data/areas.ts`), incluindo as referências legais citadas.
-8. **Política de privacidade** — revisão jurídica e nome do provedor de hospedagem.
-9. **Artigos** — o único artigo existente é de exemplo (`draft: true`), não publicado. Enquanto não houver artigos reais, `/artigos` fica com `noindex` e fora do sitemap automaticamente.
+5. **Sócio (Douglas Marcolino)**: apresentado como Bacharel em Direito, sem OAB informada; o site não o chama de advogado. Confirmar a natureza da sociedade: pelo Estatuto da Advocacia, só advogados inscritos podem ser sócios de sociedade de advogados. Se não for o caso, trocar `role` para "Equipe" em `src/data/about.ts`.
+6. **Equipe**: nomes, OAB e áreas dos demais profissionais (ex.: o Perfil do Google cita a "Dra. Daniela").
+7. **Formação** — instituições e anos das pós-graduações e do MBA.
+8. **Revisão jurídica dos textos** das 8 áreas (`src/data/areas.ts`), incluindo as referências legais citadas.
+9. **Política de privacidade** — revisão jurídica e nome do provedor de hospedagem.
+10. **Artigos** — o único artigo existente é de exemplo (`draft: true`), não publicado. Enquanto não houver artigos reais, `/artigos` fica com `noindex` e fora do sitemap automaticamente.
 
 ## Direção de design (manter nas próximas alterações)
 

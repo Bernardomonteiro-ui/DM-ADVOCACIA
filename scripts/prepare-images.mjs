@@ -20,6 +20,11 @@ await sharp(`${SRC}/deivid-marcolino-perfil.jpeg`)
   .jpeg({ quality: 92, mozjpeg: true })
   .toFile(`${OUT}/deivid-marcolino-perfil.jpg`);
 
+// Sócio: Douglas Marcolino (retrato vertical, fundo de biblioteca)
+await sharp(`${SRC}/douglas-marcolino.jpeg`)
+  .jpeg({ quality: 92, mozjpeg: true })
+  .toFile(`${OUT}/douglas-marcolino.jpg`);
+
 /* ------------------------------------------------------------------ Logo
    Original do cliente: monograma dourado sobre fundo cinza claro (247,247,247), JPEG 1024².
    Gera versões com fundo transparente. Nas bordas, a cor é "des-misturada" do fundo

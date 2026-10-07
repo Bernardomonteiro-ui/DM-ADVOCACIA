@@ -18,6 +18,29 @@ export const lawyerFacts = [
 ] as const;
 
 /**
+ * Sócio — dados fornecidos pelo cliente.
+ *
+ * ATENÇÃO (publicidade da advocacia): Douglas é apresentado como Bacharel em Direito, sem inscrição
+ * na OAB informada. Não chamá-lo de "advogado" nem vinculá-lo à condução de casos.
+ * Pelo Estatuto da Advocacia, apenas advogados inscritos podem ser sócios de sociedade de advogados.
+ * [TODO — CONFIRMAR COM CLIENTE] natureza da sociedade; se não for sócio da sociedade de advogados,
+ * trocar `role` para 'Equipe'.
+ */
+export const partner = {
+  id: 'douglas-marcolino',
+  name: 'Douglas Marcolino',
+  role: 'Sócio',
+  credential: 'Bacharel em Direito',
+  focus: 'Estudos em Ciências Criminais',
+  bio: [
+    'Douglas Marcolino é Bacharel em Direito, com estudos e aperfeiçoamento profissional direcionados às Ciências Criminais, especialmente ao Direito Penal e ao Tribunal do Júri.',
+    'Sua formação busca compreender a criminalidade sob uma perspectiva jurídica e criminológica: não apenas a aplicação da legislação penal, mas também os aspectos comportamentais, sociais e psicológicos relacionados à prática criminosa.',
+    'Mantém especial interesse pelo Tribunal do Júri, área que exige conhecimento técnico do Direito Penal e Processual Penal, capacidade de análise probatória, argumentação e compreensão aprofundada da dinâmica dos crimes dolosos contra a vida.',
+  ],
+  studies: ['Direito Penal', 'Criminologia', 'Mentes Criminosas e Comportamento Criminal', 'Tribunal do Júri'],
+} as const;
+
+/**
  * Equipe. O cliente informou que a DM atua com profissionais especializados por área,
  * mas nomes, fotos e inscrições ainda não foram fornecidos.
  * [TODO — CONFIRMAR COM CLIENTE] preencher para exibir a seção "Equipe" na página Sobre.

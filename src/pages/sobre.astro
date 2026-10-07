@@ -6,14 +6,15 @@ import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
 import WhatsAppButton from '@/components/whatsapp/WhatsAppButton.astro';
 import ContactCta from '@/components/contact/ContactCta.astro';
 import { siteConfig, whatsappMessages } from '@/config/site';
-import { education, team } from '@/data/about';
+import { education, partner, team } from '@/data/about';
 import { areaBySlug, areas } from '@/data/areas';
-import { breadcrumbSchema, graph, personSchema, webPageSchema } from '@/utils/schema';
+import { breadcrumbSchema, graph, partnerSchema, personSchema, webPageSchema } from '@/utils/schema';
 import photoProfile from '@/assets/fotos/deivid-marcolino-perfil.jpg';
 import photoFront from '@/assets/fotos/deivid-marcolino-bracos-cruzados.jpg';
+import photoPartner from '@/assets/fotos/douglas-marcolino.jpg';
 
 const title = `${siteConfig.lawyer.name} | Advogado em Porto Alegre`;
-const description = `Conheça ${siteConfig.lawyer.name}, advogado (${siteConfig.lawyer.oab}) com mais de ${siteConfig.lawyer.yearsOfExperience} anos de experiência jurídica e fundador da DM Advocacia, em Porto Alegre.`;
+const description = `Conheça ${siteConfig.lawyer.name} (${siteConfig.lawyer.oab}), fundador da DM Advocacia, com mais de ${siteConfig.lawyer.yearsOfExperience} anos de experiência jurídica, e o sócio ${partner.name}.`;
 const crumbs = [
   { name: 'Início', path: '/' },
   { name: 'Sobre', path: '/sobre' },
@@ -21,6 +22,7 @@ const crumbs = [
 const schema = graph(
   webPageSchema({ path: '/sobre', title, description, type: 'AboutPage' }),
   personSchema(),
+  partnerSchema(),
   breadcrumbSchema(crumbs),
 );
 ---
@@ -111,6 +113,35 @@ const schema = graph(
     </div>
   </section>
 
+  <!-- Sócio -->
+  <section class="pt section-y" id={partner.id} aria-labelledby="pt-title">
+    <div class="wrap pt__grid">
+      <figure class="pt__figure">
+        <div class="pt__frame" data-reveal="clip">
+          <Picture
+            src={photoPartner}
+            formats={['avif', 'webp']}
+            widths={[420, 640, 853]}
+            sizes="(min-width: 64rem) 36vw, 92vw"
+            alt={`${partner.name}, de terno escuro, em frente a uma estante de livros`}
+          />
+        </div>
+      </figure>
+      <div class="pt__copy">
+        <p class="pt__role">{partner.role}</p>
+        <h2 id="pt-title" class="h-xl">{partner.name}</h2>
+        <p class="pt__cred">{partner.credential}<br />{partner.focus}</p>
+        <div class="pt__bio">
+          {partner.bio.map((p) => <p>{p}</p>)}
+        </div>
+        <h3 class="pt__studies-title">Aprofundamento acadêmico</h3>
+        <ul class="pt__studies">
+          {partner.studies.map((s) => <li>{s}</li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
   <!-- Estrutura / equipe -->
   <section class="st section-y" aria-labelledby="st-title">
     <div class="wrap st__grid">
@@ -156,6 +187,78 @@ const schema = graph(
 </BaseLayout>
 
 <style>
+  /* Sócio */
+  .pt {
+    background: var(--color-white);
+  }
+  .pt__grid {
+    display: grid;
+    gap: 2.5rem;
+  }
+  @media (min-width: 64rem) {
+    .pt__grid {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+      gap: clamp(3rem, 6vw, 7rem);
+      align-items: center;
+    }
+  }
+  .pt__figure {
+    margin: 0;
+  }
+  .pt__frame {
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    background: #1d1a17;
+  }
+  .pt__frame :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 15%;
+  }
+  .pt__role {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--color-gold-ink);
+    margin-bottom: 0.75rem;
+  }
+  .pt__cred {
+    margin-top: 1rem;
+    font-family: var(--font-serif);
+    font-size: clamp(1.2rem, 1.8vw, 1.45rem);
+    line-height: 1.35;
+    color: var(--color-ink);
+  }
+  .pt__bio {
+    margin-top: 1.75rem;
+    display: grid;
+    gap: 1rem;
+    max-width: 38rem;
+    color: var(--color-muted);
+  }
+  .pt__studies-title {
+    margin-top: 2.25rem;
+    font-size: clamp(1.3rem, 1.9vw, 1.6rem);
+  }
+  .pt__studies {
+    margin-top: 0.75rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    column-gap: 2rem;
+    border-top: 1px solid rgb(var(--ink-rgb) / 0.14);
+  }
+  @media (min-width: 40rem) {
+    .pt__studies {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .pt__studies li {
+    padding-block: 0.75rem;
+    border-bottom: 1px solid rgb(var(--ink-rgb) / 0.14);
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+  }
+
   /* Hero */
   .sh {
     background: var(--color-paper);
