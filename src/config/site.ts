@@ -21,7 +21,8 @@ export const siteConfig = {
     name: 'Deivid Marcolino',
     role: 'Advogado',
     oab: 'OAB/RS 141.862',
-    yearsOfPractice: 20,
+    /** Experiência jurídica (dado confirmado pelo cliente). */
+    yearsOfExperience: 20,
   },
 
   contact: {

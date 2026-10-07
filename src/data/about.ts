@@ -13,7 +13,7 @@ export const education = [
 ] as const;
 
 export const lawyerFacts = [
-  'Mais de 20 anos de atuação na área do Direito',
+  'Mais de 20 anos de experiência jurídica',
   'Empresário',
 ] as const;
 

@@ -1,71 +1,60 @@
 ---
 /**
- * Marca DM Advocacia.
+ * Logo oficial da DM Advocacia (arquivo do cliente: materiais/logo-dm-advocacia.jpeg).
+ * Os recortes com fundo transparente são gerados por `npm run images`.
  *
- * [TODO — CONFIRMAR COM CLIENTE] O arquivo do logo oficial não foi enviado.
- * Esta é uma composição tipográfica provisória, fiel ao nome e ao lema do Perfil do Google
- * ("DM Advocacia — lex et ordo"). Quando o logo oficial chegar (preferencialmente em SVG),
- * substitua o conteúdo deste componente — todo o site usa apenas ele.
+ * - horizontal: monograma + letreiro lado a lado (header) — no formato quadrado original,
+ *   "LEX ET ORDO" ficaria ilegível na altura do header.
+ * - completo: logo original empilhado (rodapé).
  */
+import { Image } from 'astro:assets';
+import monograma from '@/assets/logo/logo-monograma.png';
+import letreiro from '@/assets/logo/logo-letreiro.png';
+import completo from '@/assets/logo/logo-completo.png';
+
 interface Props {
-  tone?: 'dark' | 'light';
-  compact?: boolean;
+  variant?: 'horizontal' | 'completo';
   class?: string;
+  eager?: boolean;
 }
-const { tone = 'dark', compact = false, class: className = '' } = Astro.props;
+const { variant = 'horizontal', class: className = '', eager = false } = Astro.props;
+const loading = eager ? 'eager' : 'lazy';
 ---
 
-<span class:list={['logo', `logo--${tone}`, compact && 'logo--compact', className]}>
-  <span class="logo__mark" aria-hidden="true">DM</span>
-  <span class="logo__rule" aria-hidden="true"></span>
-  <span class="logo__text">
-    <span class="logo__name">DM Advocacia</span>
-    <span class="logo__motto" aria-hidden="true">Lex et Ordo</span>
-  </span>
-</span>
+{
+  variant === 'horizontal' ? (
+    <span class:list={['logo', className]}>
+      <Image src={monograma} alt="" width={58} densities={[1, 2]} format="webp" loading={loading} class="logo__mark" />
+      <Image src={letreiro} alt="" width={120} densities={[1, 2]} format="webp" loading={loading} class="logo__word" />
+      <span class="sr-only">DM Advocacia, Lex et Ordo</span>
+    </span>
+  ) : (
+    <span class:list={['logo-full', className]}>
+      <Image src={completo} alt="DM Advocacia, Lex et Ordo" width={150} densities={[1, 2]} format="webp" loading={loading} />
+    </span>
+  )
+}
 
 <style>
   .logo {
     display: inline-flex;
     align-items: center;
-    gap: 0.8rem;
-    line-height: 1;
-    white-space: nowrap;
+    gap: 0.7rem;
+  }
+  .logo :global(img) {
+    display: block;
+    width: auto;
+    transition: height 0.4s var(--ease-out-quint);
   }
   .logo__mark {
-    font-family: var(--font-serif);
-    font-size: 2.05rem;
-    font-weight: 400;
-    letter-spacing: -0.04em;
-    transition: font-size 0.5s var(--ease-out-quint);
+    height: 2.9rem;
   }
-  .logo__rule {
-    width: 1px;
-    align-self: stretch;
-    margin-block: 0.2rem;
-    background: var(--color-gold);
+  .logo__word {
+    height: 1.7rem;
   }
-  .logo__text {
-    display: flex;
-    flex-direction: column;
-    gap: 0.32rem;
+  .logo-full :global(img) {
+    display: block;
+    width: 9.5rem;
+    height: auto;
   }
-  .logo__name {
-    font-family: var(--font-sans);
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-  }
-  .logo__motto {
-    font-family: var(--font-serif);
-    font-style: italic;
-    font-size: 0.8rem;
-    letter-spacing: 0.04em;
-  }
-  .logo--dark { color: var(--color-navy-900); }
-  .logo--dark .logo__motto { color: var(--color-gold-ink); }
-  .logo--light { color: var(--color-paper); }
-  .logo--light .logo__motto { color: var(--color-gold-soft); }
-  .logo--compact .logo__mark { font-size: 1.7rem; }
 </style>

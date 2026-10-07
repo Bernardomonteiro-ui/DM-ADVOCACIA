@@ -13,7 +13,7 @@ import photoProfile from '@/assets/fotos/deivid-marcolino-perfil.jpg';
 import photoFront from '@/assets/fotos/deivid-marcolino-bracos-cruzados.jpg';
 
 const title = `${siteConfig.lawyer.name} | Advogado em Porto Alegre`;
-const description = `Conheça ${siteConfig.lawyer.name}, advogado (${siteConfig.lawyer.oab}) com mais de ${siteConfig.lawyer.yearsOfPractice} anos de atuação no Direito e fundador da DM Advocacia, em Porto Alegre.`;
+const description = `Conheça ${siteConfig.lawyer.name}, advogado (${siteConfig.lawyer.oab}) com mais de ${siteConfig.lawyer.yearsOfExperience} anos de experiência jurídica e fundador da DM Advocacia, em Porto Alegre.`;
 const crumbs = [
   { name: 'Início', path: '/' },
   { name: 'Sobre', path: '/sobre' },
@@ -40,7 +40,7 @@ const schema = graph(
         </h1>
         <p class="sh__role">Advogado e empresário, fundador da DM Advocacia</p>
         <p class="lead sh__lead">
-          Mais de {siteConfig.lawyer.yearsOfPractice} anos de atuação na área do Direito e uma convicção que orienta o
+          Mais de {siteConfig.lawyer.yearsOfExperience} anos de experiência jurídica e uma convicção que orienta o
           escritório: cada caso merece ser conduzido por quem conhece a fundo a sua área.
         </p>
         <p class="sh__oab">{siteConfig.lawyer.oab}</p>
@@ -65,12 +65,12 @@ const schema = graph(
   <section class="tr section-y" aria-labelledby="tr-title">
     <div class="wrap tr__grid">
       <h2 id="tr-title" class="tr__title">
-        Mais de {siteConfig.lawyer.yearsOfPractice} anos de atuação no Direito.
+        Mais de {siteConfig.lawyer.yearsOfExperience} anos de experiência jurídica.
       </h2>
       <div>
         <div class="tr__text">
           <p>
-            Advogado e empresário, {siteConfig.lawyer.name} soma mais de duas décadas de atuação na área do Direito.
+            Advogado e empresário, {siteConfig.lawyer.name} soma mais de duas décadas de experiência jurídica.
             Ao longo desse percurso, aprofundou a formação em diferentes ramos: do Direito do Trabalho ao Processo
             Civil, da Criminologia ao Direito Digital e à Reforma Tributária.
           </p>

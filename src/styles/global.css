@@ -24,6 +24,9 @@
   --color-gold: #a8834e;
   --color-gold-soft: #cdb68c;
   --color-gold-ink: #7c5e33; /* latão com contraste AA sobre papel e branco */
+  /* WhatsApp: verde da marca, sempre com texto navy */
+  --color-whatsapp: #25d366;
+  --color-whatsapp-hover: #4be07f;
 
   --font-serif: 'Besley Variable', 'Rockwell', Georgia, 'Times New Roman', serif;
   --font-sans: 'Instrument Sans Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;

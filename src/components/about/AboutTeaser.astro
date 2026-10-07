@@ -3,7 +3,7 @@ import { Picture } from 'astro:assets';
 import Button from '@/components/ui/Button.astro';
 import { siteConfig } from '@/config/site';
 import { education } from '@/data/about';
-import photo from '@/assets/fotos/deivid-marcolino-perfil.jpg';
+import photo from '@/assets/fotos/deivid-marcolino-bracos-cruzados.jpg';
 ---
 
 <section class="about section-y" aria-labelledby="about-title">
@@ -13,7 +13,7 @@ import photo from '@/assets/fotos/deivid-marcolino-perfil.jpg';
         <Picture
           src={photo}
           formats={['avif', 'webp']}
-          widths={[420, 640, 900, 1200]}
+          widths={[420, 640, 900, 1090]}
           sizes="(min-width: 64rem) 48vw, 92vw"
           alt={`Retrato de ${siteConfig.lawyer.name}, advogado da DM Advocacia`}
           class="about__img"
@@ -27,7 +27,7 @@ import photo from '@/assets/fotos/deivid-marcolino-perfil.jpg';
       <p class="about__role">Advogado e empresário, fundador da DM Advocacia</p>
 
       <p class="about__statement">
-        Mais de {siteConfig.lawyer.yearsOfPractice} anos de atuação no Direito.
+        Mais de {siteConfig.lawyer.yearsOfExperience} anos de experiência jurídica.
       </p>
       <p class="about__text">
         Uma formação que atravessa as áreas trabalhista, civil, criminal, digital e tributária. À frente da DM
@@ -75,7 +75,7 @@ import photo from '@/assets/fotos/deivid-marcolino-perfil.jpg';
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: 55% 30%;
+    object-position: 50% 20%;
   }
   .about__oab {
     margin-top: 0.75rem;

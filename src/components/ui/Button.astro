@@ -4,7 +4,7 @@ import Icon from './Icon.astro';
 
 interface Props {
   href: string;
-  variant?: 'solid' | 'gold' | 'text' | 'text-light';
+  variant?: 'solid' | 'gold' | 'whatsapp' | 'text' | 'text-light';
   /** Ícone à esquerda — só o WhatsApp tem ícone; os demais botões são texto puro. */
   icon?: 'whatsapp';
   external?: boolean;
@@ -49,7 +49,8 @@ const url = link(href);
   }
 
   .btn--solid,
-  .btn--gold {
+  .btn--gold,
+  .btn--whatsapp {
     padding-inline: 1.5rem;
   }
   .btn--solid {
@@ -62,6 +63,15 @@ const url = link(href);
   .btn--solid:hover,
   .btn--solid:focus-visible {
     background: var(--color-navy-700);
+  }
+
+  .btn--whatsapp {
+    background: var(--color-whatsapp);
+    color: var(--color-navy-950);
+  }
+  .btn--whatsapp:hover,
+  .btn--whatsapp:focus-visible {
+    background: var(--color-whatsapp-hover);
   }
 
   .btn--gold {

@@ -30,11 +30,11 @@ O workflow [.github/workflows/deploy.yml](.github/workflows/deploy.yml) faz o bu
 - **Áreas de atuação** (textos, situações, FAQ, mensagens de WhatsApp, áreas relacionadas) → `src/data/areas.ts`.
 - **Formação e equipe** → `src/data/about.ts`. Preenchendo `team`, a lista aparece automaticamente na página Sobre.
 - **Artigos** → um `.md` por artigo em `src/content/artigos/`. `draft: true` não é publicado; `example: true` exibe o selo "Conteúdo de exemplo".
-- **Logo** → `src/components/ui/Logo.astro` (o site inteiro usa só esse componente).
+- **Logo** → `src/components/ui/Logo.astro` (o site inteiro usa só esse componente; recortes em `src/assets/logo/`).
 
 ## Pendências — [TODO — CONFIRMAR COM CLIENTE]
 
-1. **Logo oficial** — não foi enviado. Está em uso uma composição tipográfica provisória ("DM | DM Advocacia — Lex et Ordo"). Enviar em SVG.
+1. **Logo**: em uso o arquivo oficial (materiais/logo-dm-advocacia.jpeg), recortado por `npm run images`. Uma versão vetorial (SVG) deixaria o logo ainda mais nítido.
 2. **Domínio definitivo** — hoje `https://www.dmadvocacia.com.br` em `src/config/site.ts` **e** `astro.config.mjs` (ou variável `SITE_URL`). Afeta canonical, sitemap, Open Graph e Schema.
 3. **Horário** — interpretado como "atendimento com horário marcado, inclusive fora do horário comercial quando previamente agendado". O Schema.org declara 24h, coerente com o Perfil do Google.
 4. **Endereço** — usado o formato do Perfil do Google ("Rua Engenheiro Fernando Abreu Pereira, 107 — Sala 205, Sarandi, 91130-030") para consistência NAP. O briefing traz "Eng. Fernando **de** Abreu Pereira": confirmar a grafia oficial e manter igual no Google.
@@ -51,6 +51,8 @@ O workflow [.github/workflows/deploy.yml](.github/workflows/deploy.yml) faz o bu
 - **Sem rótulos em caixa alta** acima dos títulos; o título diz o que é a seção. Botões em caixa normal; links de texto sublinhados, sem seta.
 - **Numeração só em sequência real** (passos do atendimento) e nas 8 áreas (ordem de prioridade comercial). Listas de situações e formação não são numeradas.
 - **Motion:** um único momento orquestrado (abertura do hero da Home) + revelação das fotos + declaração de posicionamento. Não adicionar fade em parágrafos: atrasa o LCP (medido: /contato caiu de 3,7 s para 1,9 s ao remover).
+- **WhatsApp:** todos os botões de WhatsApp em verde `#25D366` com texto navy (branco sobre esse verde não passa no contraste).
+- **Hero da Home:** foto como fundo, dissolvida no navy por gradiente; header transparente com texto claro sobre ele.
 - **Hover:** 200 ms (`--dur-hover` em `global.css`).
 
 ## Decisões técnicas

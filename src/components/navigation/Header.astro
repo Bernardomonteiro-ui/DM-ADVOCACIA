@@ -5,16 +5,21 @@ import Icon from '@/components/ui/Icon.astro';
 import { mainNav, siteConfig, whatsappLink, whatsappMessages } from '@/config/site';
 import { areas } from '@/data/areas';
 
+interface Props {
+  /** Header transparente com texto claro enquanto está sobre um hero escuro (Home). */
+  overlay?: boolean;
+}
+const { overlay = false } = Astro.props;
 const path = logicalPath(Astro.url.pathname);
 const isCurrent = (href: string) =>
   path === href || (href === '/areas-de-atuacao' && areas.some((a) => path === `/${a.slug}`)) || (href !== '/' && path.startsWith(href + '/'));
 const wa = whatsappLink(whatsappMessages.general);
 ---
 
-<header class="site-header" data-header>
+<header class:list={['site-header', overlay && 'site-header--overlay']} data-header>
   <div class="wrap site-header__inner">
     <a href={link('/')} class="site-header__logo" aria-label={`${siteConfig.name}, página inicial`}>
-      <Logo />
+      <Logo eager />
     </a>
 
     <nav class="site-nav" aria-label="Principal">
@@ -108,14 +113,23 @@ const wa = whatsappLink(whatsappMessages.general);
   }
   .site-header[data-scrolled] {
     --header-h: 4.25rem;
-    background: rgb(245 242 236 / 0.86);
+    background: rgb(239 239 236 / 0.88);
     backdrop-filter: saturate(1.4) blur(14px);
     -webkit-backdrop-filter: saturate(1.4) blur(14px);
     box-shadow: 0 1px 0 rgb(13 26 43 / 0.08);
   }
   .site-header[data-scrolled] :global(.logo__mark) {
-    font-size: 1.75rem;
+    height: 2.4rem;
   }
+  .site-header[data-scrolled] :global(.logo__word) {
+    height: 1.45rem;
+  }
+
+  /* Sobre o hero escuro da Home: transparente, texto claro, CTA em contorno */
+  .site-header--overlay:not([data-scrolled]) {
+    color: #fff;
+  }
+
   .site-header__inner {
     height: 100%;
     display: flex;
@@ -230,17 +244,14 @@ const wa = whatsappLink(whatsappMessages.general);
     gap: 0.6rem;
     height: 2.75rem;
     padding-inline: 1.15rem;
-    background: var(--color-navy-900);
-    color: var(--color-paper);
+    background: var(--color-whatsapp);
+    color: var(--color-navy-950);
     font-size: 0.9rem;
     font-weight: 550;
     transition: background-color var(--dur-hover) ease-out;
   }
-  .header-cta :global(svg) {
-    color: var(--color-gold-soft);
-  }
   .header-cta:hover {
-    background: var(--color-navy-700);
+    background: var(--color-whatsapp-hover);
   }
   @media (max-width: 30rem) {
     .header-cta {
@@ -312,12 +323,6 @@ const wa = whatsappLink(whatsappMessages.general);
     box-shadow: none;
     backdrop-filter: none;
   }
-  :global(html.menu-open) .site-header :global(.logo) {
-    color: var(--color-paper);
-  }
-  :global(html.menu-open) .site-header :global(.logo__motto) {
-    color: var(--color-gold-soft);
-  }
   :global(html.menu-open) {
     overflow: hidden;
   }
@@ -367,7 +372,7 @@ const wa = whatsappLink(whatsappMessages.general);
     justify-content: center;
     gap: 0.6rem;
     height: 3.4rem;
-    background: var(--color-gold-soft);
+    background: var(--color-whatsapp);
     color: var(--color-navy-950);
     font-size: 1rem;
     font-weight: 550;

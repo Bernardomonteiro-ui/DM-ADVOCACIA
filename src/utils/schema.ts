@@ -32,7 +32,7 @@ export function organizationSchema() {
     alternateName: siteConfig.legalName,
     slogan: siteConfig.tagline.join(' '),
     url: url('/'),
-    logo: url('/favicon.svg'),
+    logo: url('/logo-dm-advocacia.png'),
     image: url(siteConfig.seo.ogImage),
     telephone: siteConfig.contact.phoneE164,
     email: siteConfig.contact.email,
