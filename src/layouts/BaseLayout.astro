@@ -6,12 +6,15 @@ import sansFont from '@fontsource-variable/instrument-sans/files/instrument-sans
 import SEO, { type SEOProps } from '@/components/layout/SEO.astro';
 import Header from '@/components/navigation/Header.astro';
 import Footer from '@/components/layout/Footer.astro';
+import WhatsAppFloat from '@/components/whatsapp/WhatsAppFloat.astro';
 
 type Props = SEOProps & {
   /** Página começa com hero escuro: header transparente com texto claro. */
   darkHero?: boolean;
+  /** Mensagem do botão flutuante de WhatsApp (contextual por página). */
+  whatsappMessage?: string;
 };
-const { darkHero = false, ...props } = Astro.props;
+const { darkHero = false, whatsappMessage, ...props } = Astro.props;
 
 const speculationRules = {
   prerender: [
@@ -50,6 +53,7 @@ const speculationRules = {
       <slot />
     </main>
     <Footer />
+    <WhatsAppFloat message={whatsappMessage} />
 
     <script>
       // Revelação discreta ao entrar na viewport.

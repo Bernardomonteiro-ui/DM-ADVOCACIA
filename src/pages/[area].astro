@@ -43,7 +43,7 @@ const schema = graph(
 );
 ---
 
-<BaseLayout title={area.seoTitle} description={area.metaDescription} schema={schema}>
+<BaseLayout title={area.seoTitle} description={area.metaDescription} schema={schema} whatsappMessage={area.whatsappMessage}>
   <PageHero kicker={kicker} title={area.name} lead={area.lead} breadcrumbs={crumbs}>
     <WhatsAppButton message={area.whatsappMessage} label="Conversar sobre meu caso" track={`area-hero-${area.slug}`} />
   </PageHero>
