@@ -66,6 +66,11 @@ const year = new Date().getFullYear();
         <span class="sr-only"> no Instagram (abre em nova aba)</span>
       </a>
     </div>
+
+    <p class="footer__credit">
+      Desenvolvido por {siteConfig.credit.name} /{' '}
+      <a class="link-draw" href={`tel:${siteConfig.credit.phoneE164}`}>{siteConfig.credit.phoneDisplay}</a>
+    </p>
   </div>
 </footer>
 
@@ -128,6 +133,15 @@ const year = new Date().getFullYear();
   }
   .footer__disclaimer {
     color: var(--color-mist);
+  }
+  .footer__credit {
+    padding-block: 1rem 1.5rem;
+    border-top: 1px solid rgb(var(--light-rgb) / 0.06);
+    font-size: 0.75rem;
+    color: var(--color-mist);
+  }
+  .footer__credit a {
+    color: inherit;
   }
   .footer__ig {
     display: inline-flex;

@@ -71,6 +71,13 @@ export const siteConfig = {
     instagramHandle: '@dm.advocacia.rs',
   },
 
+  /** Crédito de desenvolvimento exibido no rodapé. */
+  credit: {
+    name: 'Bernardo Monteiro',
+    phoneDisplay: '(11) 97620-3534',
+    phoneE164: '+5511976203534',
+  },
+
   /** Referência interna — não exibido publicamente. */
   googleBusinessProfile: 'https://share.google/bZwvZ6soFpmms8UnS',
 
